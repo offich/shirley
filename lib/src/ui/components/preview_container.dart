@@ -28,6 +28,7 @@ class PreviewContainer extends HookWidget {
     return DefaultTabController(
       length: 2,
       child: Column(
+        spacing: 24.0,
         children: [
           TabBar(
             tabAlignment: TabAlignment.fill,
@@ -37,7 +38,6 @@ class PreviewContainer extends HookWidget {
               Tab(child: Text('Code')),
             ],
           ),
-          const SizedBox(height: 24),
           Expanded(
             child: TabBarView(
               children: [
