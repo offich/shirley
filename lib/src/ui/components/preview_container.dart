@@ -31,6 +31,7 @@ class PreviewContainer extends HookWidget {
         children: [
           TabBar(
             tabAlignment: TabAlignment.fill,
+            indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               Tab(child: Text('Preview')),
               Tab(child: Text('Code')),
