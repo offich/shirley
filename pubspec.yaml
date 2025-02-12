@@ -36,6 +36,12 @@ dependencies:
   cupertino_icons: 1.0.8
   devtools_app_shared: 0.3.0
   devtools_extensions: 0.3.0
+  syntax_highlight: 0.4.0
+  flutter_hooks: 0.20.5
+  code_builder: 4.10.1
+  dart_style: 3.0.1
+  json_dynamic_widget: 8.0.0+1
+  flutter_colorpicker: 1.1.0
 
 dev_dependencies:
   flutter_test:
