@@ -158,7 +158,10 @@ class Shirley extends HookWidget {
                     Expanded(
                       flex: 7,
                       child: FieldSettingContainer(
-                          backgroundColor: backgroundColor.value),
+                        backgroundColor: backgroundColor.value,
+                        onColorChanged: (color) =>
+                            backgroundColor.value = color,
+                      ),
                     ),
                   ],
                 ),

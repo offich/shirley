@@ -26,7 +26,9 @@ class QuickSettingView extends HookWidget {
             await showColorPickerDialog(
               context,
               pickerColor: backgroundColor,
-              onColorChanged: (color) => onColorChanged?.call(color),
+              onColorChanged: (color) {
+                onColorChanged?.call(color);
+              },
             );
           },
           child: Container(

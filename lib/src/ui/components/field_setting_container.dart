@@ -5,9 +5,14 @@ import 'package:shirley/src/ui/components/field_setting/quick_setting_view.dart'
 import 'package:shirley/src/ui/components/field_setting/text_setting_view.dart';
 
 class FieldSettingContainer extends HookWidget {
-  const FieldSettingContainer({super.key, required this.backgroundColor});
+  const FieldSettingContainer({
+    super.key,
+    required this.backgroundColor,
+    this.onColorChanged,
+  });
 
   final Color backgroundColor;
+  final void Function(Color)? onColorChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,10 @@ class FieldSettingContainer extends HookWidget {
           Expanded(
             child: TabBarView(
               children: [
-                QuickSettingView(backgroundColor: backgroundColor),
+                QuickSettingView(
+                  backgroundColor: backgroundColor,
+                  onColorChanged: onColorChanged,
+                ),
                 BodySettingView(),
                 TextSettingView(),
               ],
