@@ -11,9 +11,12 @@ Future<void> showColorPickerDialog(
     builder: (context) {
       return AlertDialog(
         content: SingleChildScrollView(
-          child: ColorPicker(
-            pickerColor: pickerColor,
-            onColorChanged: onColorChanged,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 8),
+            child: ColorPicker(
+              pickerColor: pickerColor,
+              onColorChanged: onColorChanged,
+            ),
           ),
         ),
       );
