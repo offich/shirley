@@ -16,6 +16,7 @@ Future<void> showColorPickerDialog(
             child: ColorPicker(
               pickerColor: pickerColor,
               onColorChanged: onColorChanged,
+              labelTypes: [ColorLabelType.rgb],
               pickerAreaBorderRadius: BorderRadius.circular(4),
             ),
           ),
