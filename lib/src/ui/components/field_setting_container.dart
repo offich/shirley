@@ -16,6 +16,8 @@ class FieldSettingContainer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
+
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -23,6 +25,14 @@ class FieldSettingContainer extends HookWidget {
         children: [
           TabBar(
             tabAlignment: TabAlignment.fill,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: primaryColor,
+            labelStyle: TextStyle(fontSize: 16),
+            splashBorderRadius:
+                const BorderRadius.vertical(top: Radius.circular(4)),
+            overlayColor: WidgetStateProperty.all(
+              primaryColor.withAlpha((255.0 * 0.1).round()),
+            ),
             tabs: [
               Tab(child: Text('Quick Settings')),
               Tab(child: Text('Body')),
@@ -31,15 +41,22 @@ class FieldSettingContainer extends HookWidget {
           ),
           const SizedBox(height: 24),
           Expanded(
-            child: TabBarView(
-              children: [
-                QuickSettingView(
-                  backgroundColor: backgroundColor,
-                  onColorChanged: onColorChanged,
-                ),
-                BodySettingView(),
-                TextSettingView(),
-              ],
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                border: Border.all(color: primaryColor, width: 2),
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: TabBarView(
+                children: [
+                  QuickSettingView(
+                    backgroundColor: backgroundColor,
+                    onColorChanged: onColorChanged,
+                  ),
+                  BodySettingView(),
+                  TextSettingView(),
+                ],
+              ),
             ),
           ),
         ],
