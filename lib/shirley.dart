@@ -4,8 +4,8 @@ import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirley/src/ui/components/dynamic_widget.dart';
 import 'package:shirley/src/ui/components/preset_button.dart';
+import 'package:shirley/src/ui/components/preview_container.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 import 'package:dart_style/dart_style.dart';
 
@@ -42,8 +42,6 @@ class Shirley extends HookWidget {
   Widget build(BuildContext context) {
     final theme = useState<HighlighterTheme?>(null);
     final code = useState('');
-    final highlighter = useState<Highlighter?>(null);
-    final highlightedCode = useState<TextSpan>(TextSpan());
     final jsonString = useState('');
 
     final backgroundColor = useState<Color>(Color.fromRGBO(131, 217, 119, 1));
@@ -57,11 +55,6 @@ class Shirley extends HookWidget {
         await Highlighter.initialize(['dart']);
 
         theme.value = await HighlighterTheme.loadDarkTheme();
-
-        highlighter.value = Highlighter(
-          language: 'dart',
-          theme: theme.value!,
-        );
 
         final elevatedButton = refer('ElevatedButton').newInstance(
           [],
@@ -113,8 +106,6 @@ class Shirley extends HookWidget {
 
         code.value = formattedCode;
 
-        highlightedCode.value = highlighter.value!.highlight(formattedCode);
-
         jsonString.value = '''
 {
   "type": "elevated_button",
@@ -135,25 +126,6 @@ class Shirley extends HookWidget {
 
       return;
     }, [backgroundColor.value, content.value]);
-
-    useEffect(() {
-      if (theme.value == null) return;
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        highlighter.value = Highlighter(
-          language: 'dart',
-          theme: theme.value!,
-        );
-
-        highlightedCode.value = highlighter.value!.highlight(code.value);
-      });
-
-      return;
-    }, [theme.value]);
-
-    if (highlighter.value == null) {
-      return SizedBox.shrink();
-    }
 
     return DevToolsExtension(
       eventHandlers: {
@@ -200,37 +172,13 @@ class Shirley extends HookWidget {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: DefaultTabController(
-                        length: 2,
-                        child: Column(
-                          children: [
-                            TabBar(
-                              tabAlignment: TabAlignment.fill,
-                              tabs: [
-                                Tab(child: Text('Preview')),
-                                Tab(child: Text('Code')),
-                              ],
-                            ),
-                            const SizedBox(height: 24),
-                            Expanded(
-                              child: TabBarView(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      DynamicWidget(
-                                          jsonString: jsonString.value)
-                                    ],
-                                  ),
-                                  SelectableText.rich(highlightedCode.value),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: theme.value != null
+                          ? PreviewContainer(
+                              code: code.value,
+                              json: jsonString.value,
+                              theme: theme.value!,
+                            )
+                          : SizedBox.shrink(),
                     ),
                     Expanded(
                       flex: 7,
@@ -274,7 +222,7 @@ class Shirley extends HookWidget {
                                       )
                                     ])
                                   ]),
-                                  Text.rich(highlightedCode.value),
+                                  Column(children: [SizedBox.shrink()]),
                                   Column(children: [SizedBox.shrink()]),
                                 ],
                               ),
