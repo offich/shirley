@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:shirley/src/ui/components/dynamic_widget.dart';
+import 'package:shirley/src/ui/components/preview/preview_widget_view.dart';
 import 'package:shirley/src/ui/components/shirley_snack_bar.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
@@ -62,11 +62,7 @@ class PreviewContainer extends HookWidget {
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [DynamicWidget(jsonString: json)],
-                  ),
+                  PreviewWidgetView(json: json),
                   Stack(
                     children: [
                       Padding(
