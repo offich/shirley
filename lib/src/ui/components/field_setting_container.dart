@@ -48,6 +48,7 @@ class FieldSettingContainer extends HookWidget {
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   QuickSettingView(
                     backgroundColor: backgroundColor,
