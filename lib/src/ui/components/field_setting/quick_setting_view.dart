@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirley/src/ui/components/dialog/color_picker_dialog.dart';
 
 class QuickSettingView extends HookWidget {
-  const QuickSettingView({super.key, required this.backgroundColor});
+  const QuickSettingView({
+    super.key,
+    required this.backgroundColor,
+    this.onColorChanged,
+  });
 
   final Color backgroundColor;
+  final void Function(Color)? onColorChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +21,19 @@ class QuickSettingView extends HookWidget {
 
     return Column(children: [
       Row(children: [
-        Container(
-          color: backgroundColor,
-          width: 200,
-          height: 200,
+        GestureDetector(
+          onTap: () async {
+            await showColorPickerDialog(
+              context,
+              pickerColor: backgroundColor,
+              onColorChanged: (color) => onColorChanged?.call(color),
+            );
+          },
+          child: Container(
+            color: backgroundColor,
+            width: 200,
+            height: 200,
+          ),
         ),
         SizedBox(
           width: 200,

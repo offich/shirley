@@ -2,7 +2,6 @@ import 'package:code_builder/code_builder.dart';
 import 'package:devtools_extensions/api.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/extension/color.dart';
 import 'package:shirley/src/ui/components/field_setting_container.dart';
@@ -174,12 +173,6 @@ class Shirley extends HookWidget {
                 final presets = List<Widget>.filled(48, PresetButton());
                 return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
               }),
-              ColorPicker(
-                pickerColor: backgroundColor.value,
-                onColorChanged: (newColor) {
-                  backgroundColor.value = newColor;
-                },
-              ),
             ],
           ),
         ),
