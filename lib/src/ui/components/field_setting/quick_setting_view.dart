@@ -16,8 +16,10 @@ class QuickSettingView extends HookWidget {
   Widget build(BuildContext context) {
     final buttonTextEditingController =
         useTextEditingController(text: 'content');
+    final fontSizeTextEditingController = useTextEditingController(text: '12');
 
     final content = useState('');
+    final fontSize = useState('');
 
     return Column(
       spacing: 16.0,
@@ -54,9 +56,8 @@ class QuickSettingView extends HookWidget {
             ),
           ],
         ),
-        Row(children: [
-          SizedBox(
-            width: 120,
+        Row(spacing: 8.0, children: [
+          Expanded(
             child: TextField(
               decoration: InputDecoration(
                 labelText: 'Content',
@@ -65,6 +66,18 @@ class QuickSettingView extends HookWidget {
               controller: buttonTextEditingController,
               onChanged: (value) {
                 content.value = value;
+              },
+            ),
+          ),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Font Size',
+                hintText: '12',
+              ),
+              controller: fontSizeTextEditingController,
+              onChanged: (value) {
+                fontSize.value = value;
               },
             ),
           ),
