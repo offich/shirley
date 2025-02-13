@@ -3,6 +3,7 @@ import 'package:devtools_extensions/api.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirley/src/common/widget.dart';
 import 'package:shirley/src/extension/color.dart';
 import 'package:shirley/src/ui/components/field_setting_container.dart';
 import 'package:shirley/src/ui/components/preset_button.dart';
@@ -26,7 +27,7 @@ class Shirley extends HookWidget {
         useTextEditingController(text: '1.Normal Button');
 
     useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
+      afterBuild((_) async {
         await Highlighter.initialize(['dart']);
 
         theme.value = await HighlighterTheme.loadDarkTheme();
