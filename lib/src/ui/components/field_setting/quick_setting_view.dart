@@ -20,37 +20,51 @@ class QuickSettingView extends HookWidget {
     final content = useState('');
 
     return Column(children: [
-      Row(children: [
-        GestureDetector(
-          onTap: () async {
-            await showColorPickerDialog(
-              context,
-              pickerColor: backgroundColor,
-              onColorChanged: (color) {
-                onColorChanged?.call(color);
-              },
-            );
-          },
-          child: Container(
-            color: backgroundColor,
-            width: 200,
-            height: 200,
-          ),
-        ),
-        SizedBox(
-          width: 200,
-          child: TextField(
-            decoration: InputDecoration(
-              labelText: 'Content',
-              hintText: 'Normal Button',
-            ),
-            controller: buttonTextEditingController,
-            onChanged: (value) {
-              content.value = value;
+      Row(
+        spacing: 8.0,
+        children: [
+          GestureDetector(
+            onTap: () async {
+              await showColorPickerDialog(
+                context,
+                pickerColor: backgroundColor,
+                onColorChanged: (color) {
+                  onColorChanged?.call(color);
+                },
+              );
             },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4.0,
+              children: [
+                Text('Background Color', style: TextStyle(fontSize: 14)),
+                Container(
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    border: Border.all(width: 2, color: Colors.white),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  width: 200,
+                  height: 32,
+                )
+              ],
+            ),
           ),
-        )
-      ])
+          SizedBox(
+            width: 200,
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Content',
+                hintText: 'Normal Button',
+              ),
+              controller: buttonTextEditingController,
+              onChanged: (value) {
+                content.value = value;
+              },
+            ),
+          )
+        ],
+      )
     ]);
   }
 }
