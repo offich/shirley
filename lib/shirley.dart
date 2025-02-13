@@ -4,36 +4,11 @@ import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirley/src/extension/color.dart';
 import 'package:shirley/src/ui/components/preset_button.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 import 'package:dart_style/dart_style.dart';
-
-extension ColorExtension on Color {
-  int get redValue {
-    return (r * 255).round();
-  }
-
-  int get greenValue {
-    return (g * 255).round();
-  }
-
-  int get blueValue {
-    return (b * 255).round();
-  }
-
-  int get alphaValue {
-    return (a * 255).round();
-  }
-
-  String get toHex {
-    return '#'
-        '${alphaValue.toRadixString(16).padLeft(2, '0')}'
-        '${redValue.toRadixString(16).padLeft(2, '0')}'
-        '${greenValue.toRadixString(16).padLeft(2, '0')}'
-        '${blueValue.toRadixString(16).padLeft(2, '0')}';
-  }
-}
 
 class Shirley extends HookWidget {
   const Shirley({super.key});
