@@ -25,6 +25,8 @@ class PreviewContainer extends HookWidget {
       return;
     }, [theme]);
 
+    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
+
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -33,21 +35,40 @@ class PreviewContainer extends HookWidget {
           TabBar(
             tabAlignment: TabAlignment.fill,
             indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: primaryColor,
+            labelStyle: TextStyle(fontSize: 16),
+            splashBorderRadius:
+                const BorderRadius.vertical(top: Radius.circular(4)),
+            overlayColor: WidgetStateProperty.all(
+              primaryColor.withAlpha((255.0 * 0.1).round()),
+            ),
             tabs: [
               Tab(child: Text('Preview')),
               Tab(child: Text('Code')),
             ],
           ),
           Expanded(
-            child: TabBarView(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [DynamicWidget(jsonString: json)],
-                ),
-                SelectableText.rich(hightlighter.value.highlight(code)),
-              ],
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: primaryColor, width: 2),
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: TabBarView(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [DynamicWidget(jsonString: json)],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: SelectableText.rich(
+                      hightlighter.value.highlight(code),
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
