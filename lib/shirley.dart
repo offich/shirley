@@ -30,58 +30,63 @@ class Shirley extends HookWidget {
         await Highlighter.initialize(['dart']);
 
         theme.value = await HighlighterTheme.loadDarkTheme();
+      });
 
-        final elevatedButton = refer('ElevatedButton').newInstance(
-          [],
-          {
-            'child': refer('Text').newInstance([
-              literalString(buttonTextEditingController.text),
-            ]),
-            'style': refer('ElevatedButton.styleFrom').call([], {
-              'backgroundColor': refer('Colors.fromRGBO').call([
-                literalNum(backgroundColor.value.redValue),
-                literalNum(backgroundColor.value.greenValue),
-                literalNum(backgroundColor.value.blueValue),
-                literalNum(1)
-              ])
-            }),
-            'onPressed': Method((builder) => builder
-              ..lambda = true
-              ..body = Code('() {}')).closure,
-          },
-        );
+      return;
+    }, []);
 
-        final parameter = Parameter(
+    useEffect(() {
+      final elevatedButton = refer('ElevatedButton').newInstance(
+        [],
+        {
+          'child': refer('Text').newInstance([
+            literalString(buttonTextEditingController.text),
+          ]),
+          'style': refer('ElevatedButton.styleFrom').call([], {
+            'backgroundColor': refer('Colors.fromRGBO').call([
+              literalNum(backgroundColor.value.redValue),
+              literalNum(backgroundColor.value.greenValue),
+              literalNum(backgroundColor.value.blueValue),
+              literalNum(1)
+            ])
+          }),
+          'onPressed': Method((builder) => builder
+            ..lambda = true
+            ..body = Code('() {}')).closure,
+        },
+      );
+
+      final parameter = Parameter(
+        (builder) => builder
+          ..name = 'context'
+          ..type = refer('BuildContext'),
+      );
+
+      final methods = [
+        Method(
           (builder) => builder
-            ..name = 'context'
-            ..type = refer('BuildContext'),
-        );
+            ..name = 'build'
+            ..requiredParameters.add(parameter)
+            ..body = Code('return ${elevatedButton.accept(DartEmitter())};')
+            ..returns = refer('Widget'),
+        ),
+      ];
 
-        final methods = [
-          Method(
-            (builder) => builder
-              ..name = 'build'
-              ..requiredParameters.add(parameter)
-              ..body = Code('return ${elevatedButton.accept(DartEmitter())};')
-              ..returns = refer('Widget'),
-          ),
-        ];
+      final shirleyButtonClass = Class((builder) {
+        builder
+          ..name = 'ShirleyButton'
+          ..extend = refer('StatelessWidget')
+          ..methods.addAll(methods);
+      });
 
-        final shirleyButtonClass = Class((builder) {
-          builder
-            ..name = 'ShirleyButton'
-            ..extend = refer('StatelessWidget')
-            ..methods.addAll(methods);
-        });
+      final formattedCode = DartFormatter(
+        languageVersion: DartFormatter.latestLanguageVersion,
+        indent: 2,
+      ).format('${shirleyButtonClass.accept(DartEmitter.scoped())}');
 
-        final formattedCode = DartFormatter(
-          languageVersion: DartFormatter.latestLanguageVersion,
-          indent: 2,
-        ).format('${shirleyButtonClass.accept(DartEmitter.scoped())}');
+      code.value = formattedCode;
 
-        code.value = formattedCode;
-
-        jsonString.value = '''
+      jsonString.value = '''
 {
   "type": "elevated_button",
   "args": {
@@ -97,7 +102,6 @@ class Shirley extends HookWidget {
   }
 }
 ''';
-      });
 
       return;
     }, [backgroundColor.value, content.value]);
