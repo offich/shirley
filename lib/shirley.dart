@@ -20,7 +20,7 @@ class Shirley extends HookWidget {
     final jsonString = useState('');
 
     final backgroundColor = useState<Color>(Color.fromRGBO(131, 217, 119, 1));
-    final content = useState('');
+    final content = useState('1.Normal Button');
 
     final buttonTextEditingController =
         useTextEditingController(text: '1.Normal Button');
