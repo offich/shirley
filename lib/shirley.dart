@@ -9,7 +9,6 @@ import 'package:shirley/src/ui/components/field_setting_container.dart';
 import 'package:shirley/src/ui/components/preset_button.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
-import 'package:dart_style/dart_style.dart';
 
 class Shirley extends HookWidget {
   const Shirley({super.key});
@@ -80,12 +79,7 @@ class Shirley extends HookWidget {
           ..methods.addAll(methods);
       });
 
-      final formattedCode = DartFormatter(
-        languageVersion: DartFormatter.latestLanguageVersion,
-        indent: 2,
-      ).format('${shirleyButtonClass.accept(DartEmitter.scoped())}');
-
-      code.value = formattedCode;
+      code.value = '${shirleyButtonClass.accept(DartEmitter.scoped())}';
 
       jsonString.value = '''
 {
