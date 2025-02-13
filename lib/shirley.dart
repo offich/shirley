@@ -2,9 +2,9 @@ import 'package:code_builder/code_builder.dart';
 import 'package:devtools_extensions/api.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/extension/color.dart';
+import 'package:shirley/src/ui/components/field_setting_container.dart';
 import 'package:shirley/src/ui/components/preset_button.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
@@ -157,53 +157,10 @@ class Shirley extends HookWidget {
                     ),
                     Expanded(
                       flex: 7,
-                      child: DefaultTabController(
-                        length: 3,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TabBar(
-                              tabAlignment: TabAlignment.fill,
-                              tabs: [
-                                Tab(child: Text('Quick Settings')),
-                                Tab(child: Text('Body')),
-                                Tab(child: Text('Main Text')),
-                              ],
-                            ),
-                            const SizedBox(height: 24),
-                            Expanded(
-                              child: TabBarView(
-                                children: [
-                                  Column(children: [
-                                    Row(children: [
-                                      Container(
-                                        color: backgroundColor.value,
-                                        width: 200,
-                                        height: 200,
-                                      ),
-                                      SizedBox(
-                                        width: 200,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Content',
-                                            hintText: 'Normal Button',
-                                          ),
-                                          controller:
-                                              buttonTextEditingController,
-                                          onChanged: (value) {
-                                            content.value = value;
-                                          },
-                                        ),
-                                      )
-                                    ])
-                                  ]),
-                                  Column(children: [SizedBox.shrink()]),
-                                  Column(children: [SizedBox.shrink()]),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: FieldSettingContainer(
+                        backgroundColor: backgroundColor.value,
+                        onColorChanged: (color) =>
+                            backgroundColor.value = color,
                       ),
                     ),
                   ],
@@ -219,12 +176,6 @@ class Shirley extends HookWidget {
                 final presets = List<Widget>.filled(48, PresetButton());
                 return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
               }),
-              ColorPicker(
-                pickerColor: backgroundColor.value,
-                onColorChanged: (newColor) {
-                  backgroundColor.value = newColor;
-                },
-              ),
             ],
           ),
         ),
