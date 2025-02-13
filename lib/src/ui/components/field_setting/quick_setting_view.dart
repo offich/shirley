@@ -19,39 +19,44 @@ class QuickSettingView extends HookWidget {
 
     final content = useState('');
 
-    return Column(children: [
-      Row(
-        spacing: 8.0,
-        children: [
-          GestureDetector(
-            onTap: () async {
-              await showColorPickerDialog(
-                context,
-                pickerColor: backgroundColor,
-                onColorChanged: (color) {
-                  onColorChanged?.call(color);
-                },
-              );
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 4.0,
-              children: [
-                Text('Background Color', style: TextStyle(fontSize: 14)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    border: Border.all(width: 2, color: Colors.white),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  width: 200,
-                  height: 32,
-                )
-              ],
+    return Column(
+      spacing: 16.0,
+      children: [
+        Row(
+          spacing: 8.0,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                await showColorPickerDialog(
+                  context,
+                  pickerColor: backgroundColor,
+                  onColorChanged: (color) {
+                    onColorChanged?.call(color);
+                  },
+                );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
+                children: [
+                  Text('Background Color', style: TextStyle(fontSize: 14)),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      border: Border.all(width: 2, color: Colors.white),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    width: 200,
+                    height: 32,
+                  )
+                ],
+              ),
             ),
-          ),
+          ],
+        ),
+        Row(children: [
           SizedBox(
-            width: 200,
+            width: 120,
             child: TextField(
               decoration: InputDecoration(
                 labelText: 'Content',
@@ -62,9 +67,9 @@ class QuickSettingView extends HookWidget {
                 content.value = value;
               },
             ),
-          )
-        ],
-      )
-    ]);
+          ),
+        ])
+      ],
+    );
   }
 }
