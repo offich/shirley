@@ -41,6 +41,12 @@ class ColorPickerDialog extends HookWidget {
             onColorChanged(pickerColor);
           },
         ),
+        ElevatedButton(
+          child: const Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ],
       content: SingleChildScrollView(
         child: Padding(
