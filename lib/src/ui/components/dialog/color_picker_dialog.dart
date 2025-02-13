@@ -33,6 +33,15 @@ class ColorPickerDialog extends HookWidget {
     final pickedColor = useState(pickerColor);
 
     return AlertDialog(
+      actions: [
+        ElevatedButton(
+          child: const Text('Reset'),
+          onPressed: () {
+            pickedColor.value = pickerColor;
+            onColorChanged(pickerColor);
+          },
+        ),
+      ],
       content: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 16, bottom: 8),
