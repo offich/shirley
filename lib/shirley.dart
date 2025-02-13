@@ -42,7 +42,6 @@ class Shirley extends HookWidget {
   Widget build(BuildContext context) {
     final theme = useState<HighlighterTheme?>(null);
     final code = useState('');
-    final highlightedCode = useState<TextSpan>(TextSpan());
     final jsonString = useState('');
 
     final backgroundColor = useState<Color>(Color.fromRGBO(131, 217, 119, 1));
@@ -223,7 +222,7 @@ class Shirley extends HookWidget {
                                       )
                                     ])
                                   ]),
-                                  Text.rich(highlightedCode.value),
+                                  Column(children: [SizedBox.shrink()]),
                                   Column(children: [SizedBox.shrink()]),
                                 ],
                               ),
