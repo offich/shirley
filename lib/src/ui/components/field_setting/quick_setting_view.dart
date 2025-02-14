@@ -31,41 +31,6 @@ class QuickSettingView extends HookWidget {
     return Column(
       spacing: 16.0,
       children: [
-        Row(
-          spacing: 8.0,
-          children: [
-            GestureDetector(
-              onTap: () async {
-                await showColorPickerDialog(
-                  context,
-                  pickerColor: field.backgroundColor ?? Colors.orange,
-                  onColorChanged: (color) {
-                    final merged = field.buttonStyle?.merge(
-                      ElevatedButton.styleFrom(backgroundColor: color),
-                    );
-                    onButtonStyleFieldChanged?.call(merged);
-                  },
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4.0,
-                children: [
-                  Text('Background Color', style: TextStyle(fontSize: 14)),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: field.backgroundColor ?? Colors.orange,
-                      border: Border.all(width: 2, color: Colors.white),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    width: 200,
-                    height: 32,
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
         Row(spacing: 8.0, children: [
           Expanded(
             child: GestureDetector(
@@ -130,7 +95,42 @@ class QuickSettingView extends HookWidget {
               },
             ),
           ),
-        ])
+        ]),
+        Row(
+          spacing: 8.0,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                await showColorPickerDialog(
+                  context,
+                  pickerColor: field.backgroundColor ?? Colors.orange,
+                  onColorChanged: (color) {
+                    final merged = field.buttonStyle?.merge(
+                      ElevatedButton.styleFrom(backgroundColor: color),
+                    );
+                    onButtonStyleFieldChanged?.call(merged);
+                  },
+                );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
+                children: [
+                  Text('Background Color', style: TextStyle(fontSize: 14)),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: field.backgroundColor ?? Colors.orange,
+                      border: Border.all(width: 2, color: Colors.white),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    width: 200,
+                    height: 32,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
