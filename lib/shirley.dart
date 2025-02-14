@@ -1,10 +1,9 @@
-import 'package:code_builder/code_builder.dart';
 import 'package:devtools_extensions/api.dart';
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/common/widget.dart';
-import 'package:shirley/src/extension/color.dart';
+import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/field_setting_container.dart';
 import 'package:shirley/src/ui/components/preset_button.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
@@ -19,11 +18,13 @@ class Shirley extends HookWidget {
     final code = useState('');
     final jsonString = useState('');
 
-    final backgroundColor = useState<Color>(Color.fromRGBO(131, 217, 119, 1));
-    final content = useState('1.Normal Button');
-
-    final buttonTextEditingController =
-        useTextEditingController(text: '1.Normal Button');
+    final buttonField = useState(ButtonField(
+      text: '1.Normal Button',
+      textStyle: TextStyle(fontSize: 14),
+      buttonStyle: ElevatedButton.styleFrom(
+        backgroundColor: Color.fromRGBO(131, 217, 119, 1),
+      ),
+    ));
 
     useEffect(() {
       afterBuild((_) async {
@@ -36,70 +37,11 @@ class Shirley extends HookWidget {
     }, []);
 
     useEffect(() {
-      final elevatedButton = refer('ElevatedButton').newInstance(
-        [],
-        {
-          'child': refer('Text').newInstance([
-            literalString(buttonTextEditingController.text),
-          ]),
-          'style': refer('ElevatedButton.styleFrom').call([], {
-            'backgroundColor': refer('Colors.fromRGBO').call([
-              literalNum(backgroundColor.value.redValue),
-              literalNum(backgroundColor.value.greenValue),
-              literalNum(backgroundColor.value.blueValue),
-              literalNum(1)
-            ])
-          }),
-          'onPressed': Method((builder) => builder
-            ..lambda = true
-            ..body = Code('() {}')).closure,
-        },
-      );
-
-      final parameter = Parameter(
-        (builder) => builder
-          ..name = 'context'
-          ..type = refer('BuildContext'),
-      );
-
-      final methods = [
-        Method(
-          (builder) => builder
-            ..name = 'build'
-            ..requiredParameters.add(parameter)
-            ..body = Code('return ${elevatedButton.accept(DartEmitter())};')
-            ..returns = refer('Widget'),
-        ),
-      ];
-
-      final shirleyButtonClass = Class((builder) {
-        builder
-          ..name = 'ShirleyButton'
-          ..extend = refer('StatelessWidget')
-          ..methods.addAll(methods);
-      });
-
-      code.value = '${shirleyButtonClass.accept(DartEmitter.scoped())}';
-
-      jsonString.value = '''
-{
-  "type": "elevated_button",
-  "args": {
-    "child": {
-      "type": "text",
-      "args": {
-        "text": "${content.value}"
-      }
-    },
-    "style": {
-      "backgroundColor": "${backgroundColor.value.toHex}"
-    }
-  }
-}
-''';
+      code.value = buttonField.value.toCode();
+      jsonString.value = buttonField.value.toJsonString();
 
       return;
-    }, [backgroundColor.value, content.value]);
+    }, [buttonField.value]);
 
     return DevToolsExtension(
       eventHandlers: {
@@ -157,9 +99,14 @@ class Shirley extends HookWidget {
                     Expanded(
                       flex: 7,
                       child: FieldSettingContainer(
-                        backgroundColor: backgroundColor.value,
-                        onColorChanged: (color) =>
-                            backgroundColor.value = color,
+                        field: buttonField.value,
+                        onColorChanged: (color) {
+                          final buttonStyle =
+                              ElevatedButton.styleFrom(backgroundColor: color);
+                          final cloned = buttonField.value.clone();
+                          cloned.buttonStyle = buttonStyle;
+                          buttonField.value = cloned;
+                        },
                       ),
                     ),
                   ],
