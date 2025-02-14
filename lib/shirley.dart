@@ -100,6 +100,11 @@ class Shirley extends HookWidget {
                       flex: 7,
                       child: FieldSettingContainer(
                         field: buttonField.value,
+                        onTextChanged: (text) {
+                          final cloned = buttonField.value.clone();
+                          cloned.text = text;
+                          buttonField.value = cloned;
+                        },
                         onTextStyleFieldChanged: (textStyle) {
                           final cloned = buttonField.value.clone();
                           cloned.textStyle = textStyle;

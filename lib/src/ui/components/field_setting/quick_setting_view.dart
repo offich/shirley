@@ -7,11 +7,13 @@ class QuickSettingView extends HookWidget {
   const QuickSettingView({
     super.key,
     required this.field,
+    this.onTextChanged,
     this.onTextStyleFieldChanged,
     this.onColorChanged,
   });
 
   final ButtonField field;
+  final void Function(String)? onTextChanged;
   final void Function(TextStyle?)? onTextStyleFieldChanged;
   final void Function(Color)? onColorChanged;
 
@@ -71,6 +73,7 @@ class QuickSettingView extends HookWidget {
               controller: buttonTextEditingController,
               onChanged: (value) {
                 content.value = value;
+                onTextChanged?.call(value);
               },
             ),
           ),
