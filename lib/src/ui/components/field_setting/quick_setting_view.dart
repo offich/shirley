@@ -9,13 +9,13 @@ class QuickSettingView extends HookWidget {
     required this.field,
     this.onTextChanged,
     this.onTextStyleFieldChanged,
-    this.onButtonStyleChanged,
+    this.onButtonStyleFieldChanged,
   });
 
   final ButtonField field;
   final void Function(String)? onTextChanged;
   final void Function(TextStyle?)? onTextStyleFieldChanged;
-  final void Function(ButtonStyle?)? onButtonStyleChanged;
+  final void Function(ButtonStyle?)? onButtonStyleFieldChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class QuickSettingView extends HookWidget {
                     final merged = field.buttonStyle?.merge(
                       ElevatedButton.styleFrom(backgroundColor: color),
                     );
-                    onButtonStyleChanged?.call(merged);
+                    onButtonStyleFieldChanged?.call(merged);
                   },
                 );
               },
