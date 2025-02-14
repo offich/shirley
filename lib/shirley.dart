@@ -110,9 +110,7 @@ class Shirley extends HookWidget {
                           cloned.textStyle = textStyle;
                           buttonField.value = cloned;
                         },
-                        onColorChanged: (color) {
-                          final buttonStyle =
-                              ElevatedButton.styleFrom(backgroundColor: color);
+                        onButtonStyleChanged: (buttonStyle) {
                           final cloned = buttonField.value.clone();
                           cloned.buttonStyle = buttonStyle;
                           buttonField.value = cloned;
