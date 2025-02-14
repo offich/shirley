@@ -18,10 +18,6 @@ class ButtonField {
       ..textStyle = textStyle;
   }
 
-  TextStyle? cloneTextStyle() {
-    return TextStyle(fontSize: textStyle?.fontSize);
-  }
-
   String toCode() {
     final elevatedButton = refer('ElevatedButton').newInstance(
       [],
