@@ -27,6 +27,12 @@ class ButtonField {
         ], {
           'style': refer('TextStyle').call([], {
             'fontSize': literalNum(textStyle?.fontSize ?? 0),
+            'color': refer('Color.fromRGBO').call([
+              literalNum(textStyle?.color?.redValue ?? 0),
+              literalNum(textStyle?.color?.greenValue ?? 0),
+              literalNum(textStyle?.color?.blueValue ?? 0),
+              literalNum(1)
+            ]),
           }),
         }),
         'style': refer('ElevatedButton.styleFrom').call([], {
@@ -79,7 +85,8 @@ class ButtonField {
       "args": {
         "text": "$text",
         "style": {
-          "fontSize": "${textStyle?.fontSize}"
+          "fontSize": "${textStyle?.fontSize}",
+          "color": "${textStyle?.color?.toHex}"
         }
       }
     },

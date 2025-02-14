@@ -68,6 +68,36 @@ class QuickSettingView extends HookWidget {
         ),
         Row(spacing: 8.0, children: [
           Expanded(
+            child: GestureDetector(
+              onTap: () async {
+                await showColorPickerDialog(
+                  context,
+                  pickerColor: field.textStyle?.color ?? Colors.black,
+                  onColorChanged: (color) {
+                    final merged =
+                        field.textStyle?.merge(TextStyle(color: color));
+                    onTextStyleFieldChanged?.call(merged);
+                  },
+                );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
+                children: [
+                  Text('Text Color', style: TextStyle(fontSize: 14)),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: field.textStyle?.color ?? Colors.black,
+                      border: Border.all(width: 2, color: Colors.white),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    height: 32,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
             child: TextField(
               decoration: InputDecoration(
                 labelText: 'Content',

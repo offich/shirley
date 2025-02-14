@@ -20,7 +20,7 @@ class Shirley extends HookWidget {
 
     final buttonField = useState(ButtonField(
       text: '1.Normal Button',
-      textStyle: TextStyle(fontSize: 14),
+      textStyle: TextStyle(fontSize: 14, color: Colors.black),
       buttonStyle: ElevatedButton.styleFrom(
         backgroundColor: Color.fromRGBO(131, 217, 119, 1),
       ),
