@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/dialog/color_picker_dialog.dart';
 
 class QuickSettingView extends HookWidget {
   const QuickSettingView({
     super.key,
-    required this.backgroundColor,
-    this.onColorChanged,
+    required this.field,
+    this.onTextChanged,
+    this.onTextStyleFieldChanged,
+    this.onButtonStyleFieldChanged,
   });
 
-  final Color backgroundColor;
-  final void Function(Color)? onColorChanged;
+  final ButtonField field;
+  final void Function(String)? onTextChanged;
+  final void Function(TextStyle?)? onTextStyleFieldChanged;
+  final void Function(ButtonStyle?)? onButtonStyleFieldChanged;
 
   @override
   Widget build(BuildContext context) {
     final buttonTextEditingController =
-        useTextEditingController(text: 'content');
-    final fontSizeTextEditingController = useTextEditingController(text: '12');
+        useTextEditingController(text: field.text ?? '');
+    final fontSizeTextEditingController = useTextEditingController(
+      text: field.textStyle?.fontSize?.toString() ?? '',
+    );
 
-    final content = useState('');
-    final fontSize = useState('');
+    final content = useState(field.text ?? '');
+    final fontSize = useState(field.textStyle?.fontSize?.toString() ?? '');
 
     return Column(
       spacing: 16.0,
@@ -31,9 +38,12 @@ class QuickSettingView extends HookWidget {
               onTap: () async {
                 await showColorPickerDialog(
                   context,
-                  pickerColor: backgroundColor,
+                  pickerColor: field.backgroundColor ?? Colors.orange,
                   onColorChanged: (color) {
-                    onColorChanged?.call(color);
+                    final merged = field.buttonStyle?.merge(
+                      ElevatedButton.styleFrom(backgroundColor: color),
+                    );
+                    onButtonStyleFieldChanged?.call(merged);
                   },
                 );
               },
@@ -44,7 +54,7 @@ class QuickSettingView extends HookWidget {
                   Text('Background Color', style: TextStyle(fontSize: 14)),
                   Container(
                     decoration: BoxDecoration(
-                      color: backgroundColor,
+                      color: field.backgroundColor ?? Colors.orange,
                       border: Border.all(width: 2, color: Colors.white),
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -66,6 +76,7 @@ class QuickSettingView extends HookWidget {
               controller: buttonTextEditingController,
               onChanged: (value) {
                 content.value = value;
+                onTextChanged?.call(value);
               },
             ),
           ),
@@ -78,6 +89,14 @@ class QuickSettingView extends HookWidget {
               controller: fontSizeTextEditingController,
               onChanged: (value) {
                 fontSize.value = value;
+                final parsed = int.tryParse(value);
+                if (parsed == null) {
+                  return;
+                }
+
+                final merged = field.textStyle
+                    ?.merge(TextStyle(fontSize: parsed.toDouble()));
+                onTextStyleFieldChanged?.call(merged);
               },
             ),
           ),

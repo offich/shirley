@@ -1,3 +1,4 @@
+import 'package:dart_style/dart_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,6 +25,17 @@ class PreviewCodeView extends HookWidget {
       return;
     }, [theme]);
 
+    final formattedCode = useState('');
+
+    useEffect(() {
+      formattedCode.value = DartFormatter(
+        languageVersion: DartFormatter.latestLanguageVersion,
+        indent: 2,
+      ).format(code);
+
+      return;
+    }, [code]);
+
     final copying = useState(false);
 
     const secondaryColor = Color.fromRGBO(245, 88, 123, 1);
@@ -34,7 +46,7 @@ class PreviewCodeView extends HookWidget {
         Padding(
           padding: const EdgeInsets.all(16),
           child: SelectableText.rich(
-            hightlighter.value.highlight(code),
+            hightlighter.value.highlight(formattedCode.value),
             style: TextStyle(fontSize: 14),
           ),
         ),

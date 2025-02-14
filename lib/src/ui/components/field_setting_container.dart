@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/field_setting/body_setting_view.dart';
 import 'package:shirley/src/ui/components/field_setting/quick_setting_view.dart';
 import 'package:shirley/src/ui/components/field_setting/text_setting_view.dart';
@@ -7,12 +8,16 @@ import 'package:shirley/src/ui/components/field_setting/text_setting_view.dart';
 class FieldSettingContainer extends HookWidget {
   const FieldSettingContainer({
     super.key,
-    required this.backgroundColor,
-    this.onColorChanged,
+    required this.field,
+    this.onTextChanged,
+    this.onTextStyleFieldChanged,
+    this.onButtonStyleFieldChanged,
   });
 
-  final Color backgroundColor;
-  final void Function(Color)? onColorChanged;
+  final ButtonField field;
+  final void Function(String)? onTextChanged;
+  final void Function(TextStyle?)? onTextStyleFieldChanged;
+  final void Function(ButtonStyle?)? onButtonStyleFieldChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +56,10 @@ class FieldSettingContainer extends HookWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   QuickSettingView(
-                    backgroundColor: backgroundColor,
-                    onColorChanged: onColorChanged,
+                    field: field,
+                    onTextChanged: onTextChanged,
+                    onTextStyleFieldChanged: onTextStyleFieldChanged,
+                    onButtonStyleFieldChanged: onButtonStyleFieldChanged,
                   ),
                   BodySettingView(),
                   TextSettingView(),

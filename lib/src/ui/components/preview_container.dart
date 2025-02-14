@@ -18,14 +18,6 @@ class PreviewContainer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hightlighter = useState(Highlighter(language: 'dart', theme: theme));
-
-    useEffect(() {
-      hightlighter.value = Highlighter(language: 'dart', theme: theme);
-
-      return;
-    }, [theme]);
-
     const primaryColor = Color.fromRGBO(228, 23, 73, 1);
 
     return DefaultTabController(
