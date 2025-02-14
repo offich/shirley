@@ -105,10 +105,11 @@ class QuickSettingView extends HookWidget {
                   context,
                   pickerColor: field.backgroundColor ?? Colors.orange,
                   onColorChanged: (color) {
-                    final merged = field.buttonStyle?.merge(
-                      ElevatedButton.styleFrom(backgroundColor: color),
+                    final copied = field.buttonStyle?.copyWith(
+                      backgroundColor: WidgetStateProperty.all(color),
                     );
-                    onButtonStyleFieldChanged?.call(merged);
+
+                    onButtonStyleFieldChanged?.call(copied);
                   },
                 );
               },
