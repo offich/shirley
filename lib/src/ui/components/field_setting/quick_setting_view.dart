@@ -7,10 +7,12 @@ class QuickSettingView extends HookWidget {
   const QuickSettingView({
     super.key,
     required this.field,
+    this.onTextStyleFieldChanged,
     this.onColorChanged,
   });
 
   final ButtonField field;
+  final void Function(TextStyle?)? onTextStyleFieldChanged;
   final void Function(Color)? onColorChanged;
 
   @override
@@ -81,6 +83,14 @@ class QuickSettingView extends HookWidget {
               controller: fontSizeTextEditingController,
               onChanged: (value) {
                 fontSize.value = value;
+                final parsed = int.tryParse(value);
+                if (parsed == null) {
+                  return;
+                }
+
+                final merged = field.textStyle
+                    ?.merge(TextStyle(fontSize: parsed.toDouble()));
+                onTextStyleFieldChanged?.call(merged);
               },
             ),
           ),

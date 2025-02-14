@@ -18,13 +18,21 @@ class ButtonField {
       ..textStyle = textStyle;
   }
 
+  TextStyle? cloneTextStyle() {
+    return TextStyle(fontSize: textStyle?.fontSize);
+  }
+
   String toCode() {
     final elevatedButton = refer('ElevatedButton').newInstance(
       [],
       {
         'child': refer('Text').newInstance([
           literalString(text ?? ''),
-        ]),
+        ], {
+          'style': refer('TextStyle').call([], {
+            'fontSize': literalNum(textStyle?.fontSize ?? 0),
+          }),
+        }),
         'style': refer('ElevatedButton.styleFrom').call([], {
           'backgroundColor': refer('Colors.fromRGBO').call([
             literalNum(backgroundColor?.redValue ?? 0),
@@ -73,7 +81,10 @@ class ButtonField {
     "child": {
       "type": "text",
       "args": {
-        "text": "$text"
+        "text": "$text",
+        "style": {
+          "fontSize": "${textStyle?.fontSize}"
+        }
       }
     },
     "style": {

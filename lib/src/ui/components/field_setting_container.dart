@@ -9,10 +9,12 @@ class FieldSettingContainer extends HookWidget {
   const FieldSettingContainer({
     super.key,
     required this.field,
+    this.onTextStyleFieldChanged,
     this.onColorChanged,
   });
 
   final ButtonField field;
+  final void Function(TextStyle?)? onTextStyleFieldChanged;
   final void Function(Color)? onColorChanged;
 
   @override
@@ -53,6 +55,7 @@ class FieldSettingContainer extends HookWidget {
                 children: [
                   QuickSettingView(
                     field: field,
+                    onTextStyleFieldChanged: onTextStyleFieldChanged,
                     onColorChanged: onColorChanged,
                   ),
                   BodySettingView(),
