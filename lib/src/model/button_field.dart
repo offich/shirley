@@ -10,6 +10,16 @@ class ButtonField {
   ButtonField({this.text, this.textStyle, this.buttonStyle});
 
   Color? get backgroundColor => buttonStyle?.backgroundColor?.resolve({});
+  Color? get borderColor => buttonStyle?.side?.resolve({})?.color;
+  double? get borderRadius {
+    final shape = buttonStyle?.shape?.resolve({});
+
+    if (shape is RoundedRectangleBorder) {
+      return shape.borderRadius.resolve(null).topRight.x;
+    }
+
+    return 0.0;
+  }
 
   ButtonField clone() {
     return ButtonField()
@@ -41,7 +51,21 @@ class ButtonField {
             literalNum(backgroundColor?.greenValue ?? 0),
             literalNum(backgroundColor?.blueValue ?? 0),
             literalNum(1)
-          ])
+          ]),
+          'side': refer('BorderSide').call([], {
+            'width': literalNum(buttonStyle?.side?.resolve({})?.width ?? 0),
+            'color': refer('Color.fromRGBO').call([
+              literalNum(borderColor?.redValue ?? 0),
+              literalNum(borderColor?.greenValue ?? 0),
+              literalNum(borderColor?.blueValue ?? 0),
+              literalNum(1)
+            ]),
+          }),
+          'shape': refer('RoundedRectangleBorder').call([], {
+            'borderRadius': refer('BorderRadius.circular').call(
+              [literalNum(borderRadius?.toInt() ?? 0)],
+            )
+          })
         }),
         'onPressed': Method((builder) => builder
           ..lambda = true
@@ -91,7 +115,18 @@ class ButtonField {
       }
     },
     "style": {
-      "backgroundColor": "${buttonStyle?.backgroundColor?.resolve({})?.toHex}"
+      "backgroundColor": "${buttonStyle?.backgroundColor?.resolve({})?.toHex}",
+      "shape": {
+        "type": "rounded",
+        "borderRadius": {
+          "radius": "$borderRadius",
+          "type": "all"
+        }
+      },
+      "side": {
+        "color": "${borderColor?.toHex}",
+        "width": "${buttonStyle?.side?.resolve({})?.width}"
+      }
     }
   }
 }''';
