@@ -22,6 +22,7 @@ class Shirley extends HookWidget {
       text: '1.Normal Button',
       textStyle: TextStyle(fontSize: 14, color: Colors.black),
       buttonStyle: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(4),
         backgroundColor: Color.fromRGBO(131, 217, 119, 1),
         side: BorderSide(color: Color.fromRGBO(11, 127, 90, 1), width: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),

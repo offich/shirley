@@ -21,6 +21,10 @@ class ButtonField {
     return 0.0;
   }
 
+  EdgeInsets? get padding {
+    return buttonStyle?.padding?.resolve({})?.resolve(null);
+  }
+
   ButtonField clone() {
     return ButtonField()
       ..buttonStyle = buttonStyle
@@ -29,6 +33,9 @@ class ButtonField {
   }
 
   String toCode() {
+    final sameAllPadding = [padding?.right, padding?.left, padding?.bottom]
+        .every((e) => e != null && e == padding?.top);
+
     final elevatedButton = refer('ElevatedButton').newInstance(
       [],
       {
@@ -46,6 +53,16 @@ class ButtonField {
           }),
         }),
         'style': refer('ElevatedButton.styleFrom').call([], {
+          'padding': sameAllPadding
+              ? refer('EdgeInsets.all').call([literalNum(padding?.left ?? 0)])
+              : refer('EdgeInsets.fromLTRB').call(
+                  [
+                    literalNum(padding?.left ?? 0),
+                    literalNum(padding?.top ?? 0),
+                    literalNum(padding?.right ?? 0),
+                    literalNum(padding?.bottom ?? 0),
+                  ],
+                ),
           'backgroundColor': refer('Colors.fromRGBO').call([
             literalNum(backgroundColor?.redValue ?? 0),
             literalNum(backgroundColor?.greenValue ?? 0),
@@ -115,6 +132,7 @@ class ButtonField {
       }
     },
     "style": {
+      "padding": "${padding?.top}",
       "backgroundColor": "${buttonStyle?.backgroundColor?.resolve({})?.toHex}",
       "shape": {
         "type": "rounded",

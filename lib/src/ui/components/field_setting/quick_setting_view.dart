@@ -24,6 +24,10 @@ class QuickSettingView extends HookWidget {
     final fontSizeTextEditingController = useTextEditingController(
       text: field.textStyle?.fontSize?.toString() ?? '',
     );
+    final paddingTextEditingController = useTextEditingController(
+      text:
+          field.buttonStyle?.padding?.resolve({})?.resolve(null).top.toString(),
+    );
     final borderWidthTextEditingController = useTextEditingController(
       text: field.buttonStyle?.side?.resolve({})?.width.toString(),
     );
@@ -235,6 +239,40 @@ class QuickSettingView extends HookWidget {
                 ],
               ),
             ),
+          ],
+        ),
+        Row(
+          spacing: 8.0,
+          children: [
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Padding',
+                  hintText: '2',
+                ),
+                controller: paddingTextEditingController,
+                onChanged: (value) {
+                  final parsed = int.tryParse(value);
+                  if (parsed == null) return;
+
+                  final existingPadding =
+                      field.buttonStyle?.padding?.resolve({})?.resolve(null);
+                  final copiedPadding = existingPadding?.copyWith(
+                    left: parsed.toDouble(),
+                    top: parsed.toDouble(),
+                    right: parsed.toDouble(),
+                    bottom: parsed.toDouble(),
+                  );
+                  final copied = field.buttonStyle?.copyWith(
+                    padding: WidgetStateProperty.all(copiedPadding),
+                  );
+
+                  onButtonStyleFieldChanged?.call(copied);
+                },
+              ),
+            ),
+            Spacer(),
+            Spacer(),
           ],
         ),
       ],
