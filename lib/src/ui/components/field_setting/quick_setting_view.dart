@@ -47,6 +47,8 @@ class QuickSettingView extends HookWidget {
     final content = useState(field.text ?? '');
     final fontSize = useState(field.textStyle?.fontSize?.toString() ?? '');
 
+    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
+
     return Column(
       spacing: 16.0,
       children: [
@@ -62,36 +64,69 @@ class QuickSettingView extends HookWidget {
             ),
           ),
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Content',
-                hintText: 'Normal Button',
-              ),
-              controller: buttonTextEditingController,
-              onChanged: (value) {
-                content.value = value;
-                onTextChanged?.call(value);
-              },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4.0,
+              children: [
+                Text(
+                  'Content',
+                  style: TextStyle(fontSize: 14, color: primaryColor),
+                ),
+                TextField(
+                  cursorColor: primaryColor,
+                  decoration: InputDecoration(
+                    hintText: 'Normal Button',
+                    contentPadding: const EdgeInsets.all(8),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: primaryColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: primaryColor),
+                    ),
+                  ),
+                  controller: buttonTextEditingController,
+                  onChanged: (value) {
+                    content.value = value;
+                    onTextChanged?.call(value);
+                  },
+                )
+              ],
             ),
           ),
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Font Size',
-                hintText: '12',
-              ),
-              controller: fontSizeTextEditingController,
-              onChanged: (value) {
-                fontSize.value = value;
-                final parsed = int.tryParse(value);
-                if (parsed == null) {
-                  return;
-                }
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4.0,
+              children: [
+                Text(
+                  'Font Size',
+                  style: TextStyle(fontSize: 14, color: primaryColor),
+                ),
+                TextField(
+                  cursorColor: primaryColor,
+                  decoration: InputDecoration(
+                    hintText: '12',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: primaryColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: primaryColor),
+                    ),
+                  ),
+                  controller: fontSizeTextEditingController,
+                  onChanged: (value) {
+                    fontSize.value = value;
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) {
+                      return;
+                    }
 
-                final merged = field.textStyle
-                    ?.merge(TextStyle(fontSize: parsed.toDouble()));
-                onTextStyleFieldChanged?.call(merged);
-              },
+                    final merged = field.textStyle
+                        ?.merge(TextStyle(fontSize: parsed.toDouble()));
+                    onTextStyleFieldChanged?.call(merged);
+                  },
+                ),
+              ],
             ),
           ),
         ]),
@@ -117,50 +152,83 @@ class QuickSettingView extends HookWidget {
               ),
             ),
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Border Width',
-                  hintText: '4',
-                ),
-                controller: borderWidthTextEditingController,
-                onChanged: (value) {
-                  final parsed = int.tryParse(value);
-                  if (parsed == null) return;
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
+                children: [
+                  Text(
+                    'Border Width',
+                    style: TextStyle(fontSize: 14, color: primaryColor),
+                  ),
+                  TextField(
+                    cursorColor: primaryColor,
+                    decoration: InputDecoration(
+                      hintText: '4',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor),
+                      ),
+                    ),
+                    controller: borderWidthTextEditingController,
+                    onChanged: (value) {
+                      final parsed = int.tryParse(value);
+                      if (parsed == null) return;
 
-                  final existingShape =
-                      (field.buttonStyle?.shape?.resolve({}) ??
+                      final existingShape = (field.buttonStyle?.shape
+                              ?.resolve({}) ??
                           RoundedRectangleBorder()) as RoundedRectangleBorder;
-                  final copiedShape = existingShape.copyWith(
-                      borderRadius: BorderRadius.circular(parsed.toDouble()));
-                  final copied = field.buttonStyle?.copyWith(
-                    shape: WidgetStateProperty.all(copiedShape),
-                  );
+                      final copiedShape = existingShape.copyWith(
+                          borderRadius:
+                              BorderRadius.circular(parsed.toDouble()));
+                      final copied = field.buttonStyle?.copyWith(
+                        shape: WidgetStateProperty.all(copiedShape),
+                      );
 
-                  onButtonStyleFieldChanged?.call(copied);
-                },
+                      onButtonStyleFieldChanged?.call(copied);
+                    },
+                  )
+                ],
               ),
             ),
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Border Radius',
-                  hintText: '4',
-                ),
-                controller: borderRadiusTextEditingController,
-                onChanged: (value) {
-                  final parsed = int.tryParse(value);
-                  if (parsed == null) return;
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
+                children: [
+                  Text(
+                    'Border Radius',
+                    style: TextStyle(fontSize: 14, color: primaryColor),
+                  ),
+                  TextField(
+                    cursorColor: primaryColor,
+                    decoration: InputDecoration(
+                      hintText: '4',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor),
+                      ),
+                    ),
+                    controller: borderRadiusTextEditingController,
+                    onChanged: (value) {
+                      final parsed = int.tryParse(value);
+                      if (parsed == null) return;
 
-                  final existingBorderSide =
-                      field.buttonStyle?.side?.resolve({}) ?? BorderSide();
-                  final copiedBorderSide =
-                      existingBorderSide.copyWith(width: parsed.toDouble());
-                  final copied = field.buttonStyle?.copyWith(
-                    side: WidgetStateProperty.all(copiedBorderSide),
-                  );
+                      final existingBorderSide =
+                          field.buttonStyle?.side?.resolve({}) ?? BorderSide();
+                      final copiedBorderSide =
+                          existingBorderSide.copyWith(width: parsed.toDouble());
+                      final copied = field.buttonStyle?.copyWith(
+                        side: WidgetStateProperty.all(copiedBorderSide),
+                      );
 
-                  onButtonStyleFieldChanged?.call(copied);
-                },
+                      onButtonStyleFieldChanged?.call(copied);
+                    },
+                  ),
+                ],
               ),
             ),
           ],
@@ -188,30 +256,46 @@ class QuickSettingView extends HookWidget {
           spacing: 8.0,
           children: [
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Padding',
-                  hintText: '2',
-                ),
-                controller: paddingTextEditingController,
-                onChanged: (value) {
-                  final parsed = int.tryParse(value);
-                  if (parsed == null) return;
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 4.0,
+                children: [
+                  Text(
+                    'Padding',
+                    style: TextStyle(fontSize: 14, color: primaryColor),
+                  ),
+                  TextField(
+                    cursorColor: primaryColor,
+                    decoration: InputDecoration(
+                      hintText: '2',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: primaryColor),
+                      ),
+                    ),
+                    controller: paddingTextEditingController,
+                    onChanged: (value) {
+                      final parsed = int.tryParse(value);
+                      if (parsed == null) return;
 
-                  final existingPadding =
-                      field.buttonStyle?.padding?.resolve({})?.resolve(null);
-                  final copiedPadding = existingPadding?.copyWith(
-                    left: parsed.toDouble(),
-                    top: parsed.toDouble(),
-                    right: parsed.toDouble(),
-                    bottom: parsed.toDouble(),
-                  );
-                  final copied = field.buttonStyle?.copyWith(
-                    padding: WidgetStateProperty.all(copiedPadding),
-                  );
+                      final existingPadding = field.buttonStyle?.padding
+                          ?.resolve({})?.resolve(null);
+                      final copiedPadding = existingPadding?.copyWith(
+                        left: parsed.toDouble(),
+                        top: parsed.toDouble(),
+                        right: parsed.toDouble(),
+                        bottom: parsed.toDouble(),
+                      );
+                      final copied = field.buttonStyle?.copyWith(
+                        padding: WidgetStateProperty.all(copiedPadding),
+                      );
 
-                  onButtonStyleFieldChanged?.call(copied);
-                },
+                      onButtonStyleFieldChanged?.call(copied);
+                    },
+                  ),
+                ],
               ),
             ),
             Spacer(),
