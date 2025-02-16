@@ -63,7 +63,7 @@ class ButtonField {
                     literalNum(padding?.bottom ?? 0),
                   ],
                 ),
-          'backgroundColor': refer('Colors.fromRGBO').call([
+          'backgroundColor': refer('Color.fromRGBO').call([
             literalNum(backgroundColor?.redValue ?? 0),
             literalNum(backgroundColor?.greenValue ?? 0),
             literalNum(backgroundColor?.blueValue ?? 0),
