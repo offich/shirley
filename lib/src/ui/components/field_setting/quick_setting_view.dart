@@ -180,6 +180,8 @@ class QuickSettingView extends HookWidget {
                 },
               ),
             ),
+            Spacer(),
+            Spacer(),
           ],
         ),
         Row(
