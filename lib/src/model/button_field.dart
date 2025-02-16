@@ -63,7 +63,7 @@ class ButtonField {
                     literalNum(padding?.bottom ?? 0),
                   ],
                 ),
-          'backgroundColor': refer('Colors.fromRGBO').call([
+          'backgroundColor': refer('Color.fromRGBO').call([
             literalNum(backgroundColor?.redValue ?? 0),
             literalNum(backgroundColor?.greenValue ?? 0),
             literalNum(backgroundColor?.blueValue ?? 0),
@@ -100,16 +100,33 @@ class ButtonField {
       Method(
         (builder) => builder
           ..name = 'build'
+          ..annotations.add(refer('override'))
           ..requiredParameters.add(parameter)
           ..body = Code('return ${elevatedButton.accept(DartEmitter())};')
           ..returns = refer('Widget'),
       ),
     ];
 
+    final constructors = [
+      Constructor(
+        (builder) => builder
+          ..constant = true
+          ..optionalParameters.add(
+            Parameter(
+              (builder) => builder
+                ..name = 'key'
+                ..named = true
+                ..toSuper = true,
+            ),
+          ),
+      )
+    ];
+
     final shirleyButtonClass = Class((builder) {
       builder
         ..name = 'ShirleyButton'
         ..extend = refer('StatelessWidget')
+        ..constructors.addAll(constructors)
         ..methods.addAll(methods);
     });
 
