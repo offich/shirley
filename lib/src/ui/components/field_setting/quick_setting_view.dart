@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/model/button_field.dart';
-import 'package:shirley/src/ui/components/dialog/color_picker_dialog.dart';
+import 'package:shirley/src/ui/components/field_setting/color_picker_block.dart';
 
 class QuickSettingView extends HookWidget {
   const QuickSettingView({
@@ -52,33 +52,13 @@ class QuickSettingView extends HookWidget {
       children: [
         Row(spacing: 8.0, children: [
           Expanded(
-            child: GestureDetector(
-              onTap: () async {
-                await showColorPickerDialog(
-                  context,
-                  pickerColor: field.textStyle?.color ?? Colors.black,
-                  onColorChanged: (color) {
-                    final merged =
-                        field.textStyle?.merge(TextStyle(color: color));
-                    onTextStyleFieldChanged?.call(merged);
-                  },
-                );
+            child: ColorPickerBlock(
+              title: 'Text Color',
+              pickerColor: field.textStyle?.color ?? Colors.black,
+              onColorChanged: (color) {
+                final merged = field.textStyle?.merge(TextStyle(color: color));
+                onTextStyleFieldChanged?.call(merged);
               },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4.0,
-                children: [
-                  Text('Text Color', style: TextStyle(fontSize: 14)),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: field.textStyle?.color ?? Colors.black,
-                      border: Border.all(width: 2, color: Colors.white),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    height: 32,
-                  )
-                ],
-              ),
             ),
           ),
           Expanded(
@@ -119,41 +99,21 @@ class QuickSettingView extends HookWidget {
           spacing: 8.0,
           children: [
             Expanded(
-              child: GestureDetector(
-                onTap: () async {
-                  await showColorPickerDialog(
-                    context,
-                    pickerColor: field.buttonStyle?.side?.resolve({})?.color ??
-                        Colors.black,
-                    onColorChanged: (color) {
-                      final existingBorderSide =
-                          field.buttonStyle?.side?.resolve({}) ?? BorderSide();
-                      final copiedBorderSide =
-                          existingBorderSide.copyWith(color: color);
-                      final copied = field.buttonStyle?.copyWith(
-                        side: WidgetStateProperty.all(copiedBorderSide),
-                      );
-
-                      onButtonStyleFieldChanged?.call(copied);
-                    },
+              child: ColorPickerBlock(
+                title: 'Border Color',
+                pickerColor:
+                    field.buttonStyle?.side?.resolve({})?.color ?? Colors.black,
+                onColorChanged: (color) {
+                  final existingBorderSide =
+                      field.buttonStyle?.side?.resolve({}) ?? BorderSide();
+                  final copiedBorderSide =
+                      existingBorderSide.copyWith(color: color);
+                  final copied = field.buttonStyle?.copyWith(
+                    side: WidgetStateProperty.all(copiedBorderSide),
                   );
+
+                  onButtonStyleFieldChanged?.call(copied);
                 },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4.0,
-                  children: [
-                    Text('Border Color', style: TextStyle(fontSize: 14)),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: field.buttonStyle?.side?.resolve({})?.color ??
-                            Colors.yellow,
-                        border: Border.all(width: 2, color: Colors.white),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      height: 32,
-                    )
-                  ],
-                ),
               ),
             ),
             Expanded(
@@ -208,35 +168,16 @@ class QuickSettingView extends HookWidget {
         Row(
           spacing: 8.0,
           children: [
-            GestureDetector(
-              onTap: () async {
-                await showColorPickerDialog(
-                  context,
-                  pickerColor: field.backgroundColor ?? Colors.orange,
-                  onColorChanged: (color) {
-                    final copied = field.buttonStyle?.copyWith(
-                      backgroundColor: WidgetStateProperty.all(color),
-                    );
+            Expanded(
+              child: ColorPickerBlock(
+                title: 'Background Color',
+                pickerColor: field.backgroundColor ?? Colors.orange,
+                onColorChanged: (color) {
+                  final copied = field.buttonStyle?.copyWith(
+                      backgroundColor: WidgetStateProperty.all(color));
 
-                    onButtonStyleFieldChanged?.call(copied);
-                  },
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4.0,
-                children: [
-                  Text('Background Color', style: TextStyle(fontSize: 14)),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: field.backgroundColor ?? Colors.orange,
-                      border: Border.all(width: 2, color: Colors.white),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    width: 200,
-                    height: 32,
-                  )
-                ],
+                  onButtonStyleFieldChanged?.call(copied);
+                },
               ),
             ),
           ],
