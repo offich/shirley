@@ -137,12 +137,13 @@ class QuickSettingView extends HookWidget {
                     final parsed = int.tryParse(value);
                     if (parsed == null) return;
 
-                    final existingBorderSide =
-                        field.buttonStyle?.side?.resolve({}) ?? BorderSide();
-                    final copiedBorderSide =
-                        existingBorderSide.copyWith(width: parsed.toDouble());
+                    final existingShape =
+                        (field.buttonStyle?.shape?.resolve({}) ??
+                            RoundedRectangleBorder()) as RoundedRectangleBorder;
+                    final copiedShape = existingShape.copyWith(
+                        borderRadius: BorderRadius.circular(parsed.toDouble()));
                     final copied = field.buttonStyle?.copyWith(
-                      side: WidgetStateProperty.all(copiedBorderSide),
+                      shape: WidgetStateProperty.all(copiedShape),
                     );
 
                     onButtonStyleFieldChanged?.call(copied);
