@@ -21,6 +21,8 @@ class Shirley extends HookWidget {
     final buttonField = useState(ButtonField(
       text: '1.Normal Button',
       textStyle: TextStyle(fontSize: 14, color: Colors.black),
+      height: 80,
+      width: 120,
       buttonStyle: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(4),
         backgroundColor: Color.fromRGBO(131, 217, 119, 1),
@@ -116,6 +118,16 @@ class Shirley extends HookWidget {
                         onButtonStyleFieldChanged: (buttonStyle) {
                           final cloned = buttonField.value.clone();
                           cloned.buttonStyle = buttonStyle;
+                          buttonField.value = cloned;
+                        },
+                        onWidthChanged: (width) {
+                          final cloned = buttonField.value.clone();
+                          cloned.width = width;
+                          buttonField.value = cloned;
+                        },
+                        onHeightChanged: (height) {
+                          final cloned = buttonField.value.clone();
+                          cloned.height = height;
                           buttonField.value = cloned;
                         },
                       ),
