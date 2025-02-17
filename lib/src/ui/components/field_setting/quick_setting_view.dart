@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/field_setting/color_picker_block.dart';
+import 'package:shirley/src/ui/components/field_setting/field_text_input.dart';
 
 class QuickSettingView extends HookWidget {
   const QuickSettingView({
@@ -19,26 +20,18 @@ class QuickSettingView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttonTextEditingController =
-        useTextEditingController(text: field.text ?? '');
-    final fontSizeTextEditingController = useTextEditingController(
-      text: field.textStyle?.fontSize?.toString() ?? '',
-    );
-    final paddingTextEditingController = useTextEditingController(
-      text:
-          field.buttonStyle?.padding?.resolve({})?.resolve(null).top.toString(),
-    );
-    final borderWidthTextEditingController = useTextEditingController(
-      text: field.buttonStyle?.side?.resolve({})?.width.toString(),
-    );
-    final borderRadiusTextEditingController = useTextEditingController();
+    final initialPadding =
+        field.buttonStyle?.padding?.resolve({})?.resolve(null).top.toString();
+    final initialBorderWidth =
+        field.buttonStyle?.side?.resolve({})?.width.toString();
+
+    String? borderRadius;
 
     useEffect(() {
       final shape = field.buttonStyle?.shape?.resolve({});
 
       if (shape is RoundedRectangleBorder) {
-        borderRadiusTextEditingController.text =
-            shape.borderRadius.resolve(null).topRight.x.toString();
+        borderRadius = shape.borderRadius.resolve(null).topRight.x.toString();
       }
 
       return;
@@ -46,8 +39,6 @@ class QuickSettingView extends HookWidget {
 
     final content = useState(field.text ?? '');
     final fontSize = useState(field.textStyle?.fontSize?.toString() ?? '');
-
-    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
 
     return SingleChildScrollView(
       child: Column(
@@ -66,82 +57,32 @@ class QuickSettingView extends HookWidget {
               ),
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4.0,
-                children: [
-                  Text('Content', style: TextStyle(fontSize: 14)),
-                  TextField(
-                    cursorColor: primaryColor,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      hintText: 'Normal Button',
-                      hintStyle: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.3),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: primaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: primaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
-                    controller: buttonTextEditingController,
-                    onChanged: (value) {
-                      content.value = value;
-                      onTextChanged?.call(value);
-                    },
-                  )
-                ],
+              child: FieldTextInput(
+                title: 'Content',
+                placeholder: 'Normal Button',
+                initialText: field.text,
+                onChanged: (value) {
+                  content.value = value;
+                  onTextChanged?.call(value);
+                },
               ),
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4.0,
-                children: [
-                  Text('Font Size', style: TextStyle(fontSize: 14)),
-                  TextField(
-                    cursorColor: primaryColor,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      hintText: '12',
-                      hintStyle: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.3),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: primaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: primaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
-                    controller: fontSizeTextEditingController,
-                    onChanged: (value) {
-                      fontSize.value = value;
-                      final parsed = int.tryParse(value);
-                      if (parsed == null) {
-                        return;
-                      }
+              child: FieldTextInput(
+                title: 'Font Size',
+                placeholder: '12',
+                initialText: field.textStyle?.fontSize?.toString(),
+                onChanged: (value) {
+                  fontSize.value = value;
+                  final parsed = int.tryParse(value);
+                  if (parsed == null) {
+                    return;
+                  }
 
-                      final merged = field.textStyle
-                          ?.merge(TextStyle(fontSize: parsed.toDouble()));
-                      onTextStyleFieldChanged?.call(merged);
-                    },
-                  ),
-                ],
+                  final merged = field.textStyle
+                      ?.merge(TextStyle(fontSize: parsed.toDouble()));
+                  onTextStyleFieldChanged?.call(merged);
+                },
               ),
             ),
           ]),
@@ -167,98 +108,46 @@ class QuickSettingView extends HookWidget {
                 ),
               ),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4.0,
-                  children: [
-                    Text('Border Width', style: TextStyle(fontSize: 14)),
-                    TextField(
-                      cursorColor: primaryColor,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        hintText: '4',
-                        hintStyle: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.3),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                      controller: borderWidthTextEditingController,
-                      onChanged: (value) {
-                        final parsed = int.tryParse(value);
-                        if (parsed == null) return;
+                child: FieldTextInput(
+                  title: 'Border Width',
+                  placeholder: '4',
+                  initialText: initialBorderWidth,
+                  onChanged: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) return;
 
-                        final existingShape = (field.buttonStyle?.shape
-                                ?.resolve({}) ??
+                    final existingShape =
+                        (field.buttonStyle?.shape?.resolve({}) ??
                             RoundedRectangleBorder()) as RoundedRectangleBorder;
-                        final copiedShape = existingShape.copyWith(
-                            borderRadius:
-                                BorderRadius.circular(parsed.toDouble()));
-                        final copied = field.buttonStyle?.copyWith(
-                          shape: WidgetStateProperty.all(copiedShape),
-                        );
+                    final copiedShape = existingShape.copyWith(
+                        borderRadius: BorderRadius.circular(parsed.toDouble()));
+                    final copied = field.buttonStyle?.copyWith(
+                      shape: WidgetStateProperty.all(copiedShape),
+                    );
 
-                        onButtonStyleFieldChanged?.call(copied);
-                      },
-                    )
-                  ],
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
                 ),
               ),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4.0,
-                  children: [
-                    Text('Border Radius', style: TextStyle(fontSize: 14)),
-                    TextField(
-                      cursorColor: primaryColor,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        hintText: '4',
-                        hintStyle: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.3),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                      controller: borderRadiusTextEditingController,
-                      onChanged: (value) {
-                        final parsed = int.tryParse(value);
-                        if (parsed == null) return;
+                child: FieldTextInput(
+                  title: 'Border Radius',
+                  placeholder: '4',
+                  initialText: borderRadius,
+                  onChanged: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) return;
 
-                        final existingBorderSide =
-                            field.buttonStyle?.side?.resolve({}) ??
-                                BorderSide();
-                        final copiedBorderSide = existingBorderSide.copyWith(
-                            width: parsed.toDouble());
-                        final copied = field.buttonStyle?.copyWith(
-                          side: WidgetStateProperty.all(copiedBorderSide),
-                        );
+                    final existingBorderSide =
+                        field.buttonStyle?.side?.resolve({}) ?? BorderSide();
+                    final copiedBorderSide =
+                        existingBorderSide.copyWith(width: parsed.toDouble());
+                    final copied = field.buttonStyle?.copyWith(
+                      side: WidgetStateProperty.all(copiedBorderSide),
+                    );
 
-                        onButtonStyleFieldChanged?.call(copied);
-                      },
-                    ),
-                  ],
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
                 ),
               ),
             ],
@@ -286,53 +175,28 @@ class QuickSettingView extends HookWidget {
             spacing: 8.0,
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4.0,
-                  children: [
-                    Text('Padding', style: TextStyle(fontSize: 14)),
-                    TextField(
-                      cursorColor: primaryColor,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        hintText: '2',
-                        hintStyle: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.3),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
-                      controller: paddingTextEditingController,
-                      onChanged: (value) {
-                        final parsed = int.tryParse(value);
-                        if (parsed == null) return;
+                child: FieldTextInput(
+                  title: 'Padding',
+                  placeholder: '2',
+                  initialText: initialPadding,
+                  onChanged: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) return;
 
-                        final existingPadding = field.buttonStyle?.padding
-                            ?.resolve({})?.resolve(null);
-                        final copiedPadding = existingPadding?.copyWith(
-                          left: parsed.toDouble(),
-                          top: parsed.toDouble(),
-                          right: parsed.toDouble(),
-                          bottom: parsed.toDouble(),
-                        );
-                        final copied = field.buttonStyle?.copyWith(
-                          padding: WidgetStateProperty.all(copiedPadding),
-                        );
+                    final existingPadding =
+                        field.buttonStyle?.padding?.resolve({})?.resolve(null);
+                    final copiedPadding = existingPadding?.copyWith(
+                      left: parsed.toDouble(),
+                      top: parsed.toDouble(),
+                      right: parsed.toDouble(),
+                      bottom: parsed.toDouble(),
+                    );
+                    final copied = field.buttonStyle?.copyWith(
+                      padding: WidgetStateProperty.all(copiedPadding),
+                    );
 
-                        onButtonStyleFieldChanged?.call(copied);
-                      },
-                    ),
-                  ],
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
                 ),
               ),
               Spacer(),
