@@ -70,20 +70,26 @@ class QuickSettingView extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 4.0,
                 children: [
-                  Text(
-                    'Content',
-                    style: TextStyle(fontSize: 14, color: primaryColor),
-                  ),
+                  Text('Content', style: TextStyle(fontSize: 14)),
                   TextField(
                     cursorColor: primaryColor,
                     decoration: InputDecoration(
+                      isDense: true,
                       hintText: 'Normal Button',
-                      contentPadding: const EdgeInsets.all(8),
+                      hintStyle: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor),
+                        borderSide: BorderSide(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor),
+                        borderSide: BorderSide(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
                       ),
                     ),
                     controller: buttonTextEditingController,
@@ -100,19 +106,26 @@ class QuickSettingView extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 4.0,
                 children: [
-                  Text(
-                    'Font Size',
-                    style: TextStyle(fontSize: 14, color: primaryColor),
-                  ),
+                  Text('Font Size', style: TextStyle(fontSize: 14)),
                   TextField(
                     cursorColor: primaryColor,
                     decoration: InputDecoration(
+                      isDense: true,
                       hintText: '12',
+                      hintStyle: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor),
+                        borderSide: BorderSide(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor),
+                        borderSide: BorderSide(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
                       ),
                     ),
                     controller: fontSizeTextEditingController,
@@ -158,19 +171,26 @@ class QuickSettingView extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 4.0,
                   children: [
-                    Text(
-                      'Border Width',
-                      style: TextStyle(fontSize: 14, color: primaryColor),
-                    ),
+                    Text('Border Width', style: TextStyle(fontSize: 14)),
                     TextField(
                       cursorColor: primaryColor,
                       decoration: InputDecoration(
+                        isDense: true,
                         hintText: '4',
+                        hintStyle: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                            width: 2.0,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                            width: 2.0,
+                          ),
                         ),
                       ),
                       controller: borderWidthTextEditingController,
@@ -199,19 +219,26 @@ class QuickSettingView extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 4.0,
                   children: [
-                    Text(
-                      'Border Radius',
-                      style: TextStyle(fontSize: 14, color: primaryColor),
-                    ),
+                    Text('Border Radius', style: TextStyle(fontSize: 14)),
                     TextField(
                       cursorColor: primaryColor,
                       decoration: InputDecoration(
+                        isDense: true,
                         hintText: '4',
+                        hintStyle: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                            width: 2.0,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                            width: 2.0,
+                          ),
                         ),
                       ),
                       controller: borderRadiusTextEditingController,
@@ -263,19 +290,26 @@ class QuickSettingView extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 4.0,
                   children: [
-                    Text(
-                      'Padding',
-                      style: TextStyle(fontSize: 14, color: primaryColor),
-                    ),
+                    Text('Padding', style: TextStyle(fontSize: 14)),
                     TextField(
                       cursorColor: primaryColor,
                       decoration: InputDecoration(
+                        isDense: true,
                         hintText: '2',
+                        hintStyle: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                            width: 2.0,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                            width: 2.0,
+                          ),
                         ),
                       ),
                       controller: paddingTextEditingController,
