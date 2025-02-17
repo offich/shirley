@@ -15,6 +15,8 @@ class ColorPickerBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
+
     return GestureDetector(
       onTap: () async {
         await showColorPickerDialog(
@@ -31,10 +33,10 @@ class ColorPickerBlock extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: pickerColor,
-              border: Border.all(width: 2, color: Colors.white),
+              border: Border.all(width: 2.0, color: primaryColor),
               borderRadius: BorderRadius.circular(4),
             ),
-            height: 32,
+            height: 36,
           )
         ],
       ),
