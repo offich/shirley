@@ -66,8 +66,10 @@ class FieldSettingContainer extends HookWidget {
                     onButtonStyleFieldChanged: onButtonStyleFieldChanged,
                   ),
                   BodySettingView(
+                    field: field,
                     width: field.width ?? 0.0,
                     height: field.height ?? 0.0,
+                    onButtonStyleFieldChanged: onButtonStyleFieldChanged,
                     onWidthChanged: onWidthChanged,
                     onHeightChanged: onHeightChanged,
                   ),
