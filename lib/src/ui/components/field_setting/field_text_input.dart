@@ -19,6 +19,11 @@ class FieldTextInput extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useTextEditingController(text: initialText);
 
+    useEffect(() {
+      controller.text = initialText ?? '';
+      return;
+    }, [initialText]);
+
     const primaryColor = Color.fromRGBO(228, 23, 73, 1);
 
     return Column(

@@ -33,6 +33,11 @@ class ButtonField {
     return buttonStyle?.padding?.resolve({})?.resolve(null);
   }
 
+  bool get sameAllPadding {
+    return [padding?.right, padding?.left, padding?.bottom]
+        .every((e) => e != null && e == padding?.top);
+  }
+
   ButtonField clone() {
     return ButtonField()
       ..width = width
@@ -43,9 +48,6 @@ class ButtonField {
   }
 
   String toCode() {
-    final sameAllPadding = [padding?.right, padding?.left, padding?.bottom]
-        .every((e) => e != null && e == padding?.top);
-
     final buttonExpression = refer('ElevatedButton').newInstance(
       [],
       {
@@ -156,6 +158,10 @@ class ButtonField {
   }
 
   String toJsonString() {
+    final paddingJson = sameAllPadding
+        ? '${padding?.top}'
+        : '${padding?.left},${padding?.top},${padding?.right},${padding?.bottom}';
+
     final buttonJson = '''
 {
   "type": "elevated_button",
@@ -171,7 +177,7 @@ class ButtonField {
       }
     },
     "style": {
-      "padding": "${padding?.top}",
+      "padding": "$paddingJson",
       "backgroundColor": "${buttonStyle?.backgroundColor?.resolve({})?.toHex}",
       "shape": {
         "type": "rounded",
