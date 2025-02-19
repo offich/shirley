@@ -24,6 +24,23 @@ class BodySettingView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final initialBorderWidth =
+        field.buttonStyle?.side?.resolve({})?.width.toString();
+    final initialPadding =
+        field.buttonStyle?.padding?.resolve({})?.resolve(null).top.toString();
+
+    String? borderRadius;
+
+    useEffect(() {
+      final shape = field.buttonStyle?.shape?.resolve({});
+
+      if (shape is RoundedRectangleBorder) {
+        borderRadius = shape.borderRadius.resolve(null).topRight.x.toString();
+      }
+
+      return;
+    }, []);
+
     return SingleChildScrollView(
       child: Column(
         spacing: 16.0,
@@ -80,6 +97,104 @@ class BodySettingView extends HookWidget {
                   },
                 ),
               ),
+              Spacer(),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
+            children: [
+              Expanded(
+                child: FieldTextInput(
+                  title: 'Overall Border Width',
+                  placeholder: '4',
+                  initialText: initialBorderWidth,
+                  onChanged: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) return;
+
+                    final existingBorderSide =
+                        field.buttonStyle?.side?.resolve({}) ?? BorderSide();
+                    final copiedBorderSide =
+                        existingBorderSide.copyWith(width: parsed.toDouble());
+                    final copied = field.buttonStyle?.copyWith(
+                      side: WidgetStateProperty.all(copiedBorderSide),
+                    );
+
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
+                ),
+              ),
+              Expanded(
+                child: FieldTextInput(
+                  title: 'Border Radius',
+                  placeholder: '4',
+                  initialText: borderRadius,
+                  onChanged: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) return;
+
+                    final existingShape =
+                        (field.buttonStyle?.shape?.resolve({}) ??
+                            RoundedRectangleBorder()) as RoundedRectangleBorder;
+                    final copiedShape = existingShape.copyWith(
+                        borderRadius: BorderRadius.circular(parsed.toDouble()));
+                    final copied = field.buttonStyle?.copyWith(
+                      shape: WidgetStateProperty.all(copiedShape),
+                    );
+
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
+                ),
+              ),
+              Expanded(
+                child: ColorPickerBlock(
+                  title: 'Border Color',
+                  pickerColor: field.buttonStyle?.side?.resolve({})?.color ??
+                      Colors.black,
+                  onColorChanged: (color) {
+                    final existingBorderSide =
+                        field.buttonStyle?.side?.resolve({}) ?? BorderSide();
+                    final copiedBorderSide =
+                        existingBorderSide.copyWith(color: color);
+                    final copied = field.buttonStyle?.copyWith(
+                      side: WidgetStateProperty.all(copiedBorderSide),
+                    );
+
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
+            children: [
+              Expanded(
+                child: FieldTextInput(
+                  title: 'Overall Padding',
+                  placeholder: '2',
+                  initialText: initialPadding,
+                  onChanged: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed == null) return;
+
+                    final existingPadding =
+                        field.buttonStyle?.padding?.resolve({})?.resolve(null);
+                    final copiedPadding = existingPadding?.copyWith(
+                      left: parsed.toDouble(),
+                      top: parsed.toDouble(),
+                      right: parsed.toDouble(),
+                      bottom: parsed.toDouble(),
+                    );
+                    final copied = field.buttonStyle?.copyWith(
+                      padding: WidgetStateProperty.all(copiedPadding),
+                    );
+
+                    onButtonStyleFieldChanged?.call(copied);
+                  },
+                ),
+              ),
+              Spacer(),
               Spacer(),
             ],
           ),
