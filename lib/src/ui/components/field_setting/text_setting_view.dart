@@ -18,9 +18,6 @@ class TextSettingView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = useState(field.text ?? '');
-    final fontSize = useState(field.textStyle?.fontSize?.toString() ?? '');
-
     return SingleChildScrollView(
       child: Column(
         spacing: 16.0,
@@ -45,7 +42,6 @@ class TextSettingView extends HookWidget {
                   placeholder: 'Normal Button',
                   value: field.text,
                   onChanged: (value) {
-                    content.value = value;
                     onTextChanged?.call(value);
                   },
                 ),
@@ -56,7 +52,6 @@ class TextSettingView extends HookWidget {
                   placeholder: '12',
                   value: field.textStyle?.fontSize?.toString(),
                   onChanged: (value) {
-                    fontSize.value = value;
                     final parsed = int.tryParse(value);
                     if (parsed == null) {
                       return;
