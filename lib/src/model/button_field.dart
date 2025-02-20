@@ -56,6 +56,8 @@ class ButtonField {
         ], {
           'style': refer('TextStyle').call([], {
             'fontSize': literalNum(textStyle?.fontSize ?? 0),
+            'fontWeight': refer('FontWeight.values')
+                .index(literalNum(textStyle?.fontWeight?.index ?? 0)),
             'color': refer('Color.fromRGBO').call([
               literalNum(textStyle?.color?.redValue ?? 0),
               literalNum(textStyle?.color?.greenValue ?? 0),
@@ -172,6 +174,7 @@ class ButtonField {
         "text": "$text",
         "style": {
           "fontSize": "${textStyle?.fontSize}",
+          "fontWeight": "${textStyle?.fontWeight?.toString().split('.')[1]}",
           "color": "${textStyle?.color?.toHex}"
         }
       }
