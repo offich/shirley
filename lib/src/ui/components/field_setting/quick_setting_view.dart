@@ -83,6 +83,17 @@ class QuickSettingView extends HookWidget {
           ]),
           Row(
             spacing: 8.0,
+            children: <Widget>[
+              SizedBox(width: 40, child: Divider()),
+              Text(
+                'Border',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Expanded(child: Divider()),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
             children: [
               Expanded(
                 child: ColorPickerBlock(
@@ -149,6 +160,17 @@ class QuickSettingView extends HookWidget {
           ),
           Row(
             spacing: 8.0,
+            children: <Widget>[
+              SizedBox(width: 40, child: Divider()),
+              Text(
+                'Background',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Expanded(child: Divider()),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
             children: [
               Expanded(
                 child: ColorPickerBlock(
@@ -164,6 +186,17 @@ class QuickSettingView extends HookWidget {
               ),
               Spacer(),
               Spacer(),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
+            children: <Widget>[
+              SizedBox(width: 40, child: Divider()),
+              Text(
+                'Padding',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Expanded(child: Divider()),
             ],
           ),
           Row(

@@ -96,6 +96,17 @@ class BodySettingView extends HookWidget {
           ),
           Row(
             spacing: 8.0,
+            children: <Widget>[
+              SizedBox(width: 40, child: Divider()),
+              Text(
+                'Dimension',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Expanded(child: Divider()),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
             children: [
               Expanded(
                 child: FieldTextInput(
@@ -128,6 +139,17 @@ class BodySettingView extends HookWidget {
                 ),
               ),
               Spacer(),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
+            children: <Widget>[
+              SizedBox(width: 40, child: Divider()),
+              Text(
+                'Border',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Expanded(child: Divider()),
             ],
           ),
           Row(
@@ -194,6 +216,17 @@ class BodySettingView extends HookWidget {
                   },
                 ),
               ),
+            ],
+          ),
+          Row(
+            spacing: 8.0,
+            children: <Widget>[
+              SizedBox(width: 40, child: Divider()),
+              Text(
+                'Padding',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Expanded(child: Divider()),
             ],
           ),
           Row(
