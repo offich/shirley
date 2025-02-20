@@ -60,7 +60,7 @@ class QuickSettingView extends HookWidget {
               child: FieldTextInput(
                 title: 'Content',
                 placeholder: 'Normal Button',
-                initialText: field.text,
+                value: field.text,
                 onChanged: (value) {
                   content.value = value;
                   onTextChanged?.call(value);
@@ -71,7 +71,7 @@ class QuickSettingView extends HookWidget {
               child: FieldTextInput(
                 title: 'Font Size',
                 placeholder: '12',
-                initialText: field.textStyle?.fontSize?.toString(),
+                value: field.textStyle?.fontSize?.toString(),
                 onChanged: (value) {
                   fontSize.value = value;
                   final parsed = int.tryParse(value);
@@ -111,7 +111,7 @@ class QuickSettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Border Width',
                   placeholder: '4',
-                  initialText: initialBorderWidth,
+                  value: initialBorderWidth,
                   onChanged: (value) {
                     final parsed = int.tryParse(value);
                     if (parsed == null) return;
@@ -132,7 +132,7 @@ class QuickSettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Border Radius',
                   placeholder: '4',
-                  initialText: borderRadius,
+                  value: borderRadius,
                   onChanged: (value) {
                     final parsed = int.tryParse(value);
                     if (parsed == null) return;
@@ -178,7 +178,7 @@ class QuickSettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Padding',
                   placeholder: '2',
-                  initialText: initialPadding,
+                  value: initialPadding,
                   onChanged: (value) {
                     final parsed = int.tryParse(value);
                     if (parsed == null) return;
