@@ -5,24 +5,24 @@ class FieldTextInput extends HookWidget {
   const FieldTextInput({
     super.key,
     required this.title,
-    this.initialText,
+    this.value,
     this.placeholder,
     this.onChanged,
   });
 
   final String title;
-  final String? initialText;
+  final String? value;
   final String? placeholder;
   final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController(text: initialText);
+    final controller = useTextEditingController(text: value);
 
     useEffect(() {
-      controller.text = initialText ?? '';
+      controller.text = value ?? '';
       return;
-    }, [initialText]);
+    }, [value]);
 
     const primaryColor = Color.fromRGBO(228, 23, 73, 1);
 

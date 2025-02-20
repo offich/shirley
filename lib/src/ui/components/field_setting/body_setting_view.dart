@@ -101,7 +101,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Width',
                   placeholder: '120',
-                  initialText: width.toString(),
+                  value: width.toString(),
                   onChanged: (value) {
                     final parsed = double.tryParse(value);
                     if (parsed == null) {
@@ -116,7 +116,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Height',
                   placeholder: '80',
-                  initialText: height.toString(),
+                  value: height.toString(),
                   onChanged: (value) {
                     final parsed = double.tryParse(value);
                     if (parsed == null) {
@@ -137,7 +137,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Overall Border Width',
                   placeholder: '4',
-                  initialText: initialBorderWidth,
+                  value: initialBorderWidth,
                   onChanged: (value) {
                     final parsed = int.tryParse(value);
                     if (parsed == null) return;
@@ -158,7 +158,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Border Radius',
                   placeholder: '4',
-                  initialText: borderRadius,
+                  value: borderRadius,
                   onChanged: (value) {
                     final parsed = int.tryParse(value);
                     if (parsed == null) return;
@@ -204,7 +204,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Overall Padding',
                   placeholder: '2',
-                  initialText: initialPadding,
+                  value: initialPadding,
                   onChanged: (value) {
                     debouncer.value.run(() {
                       final parsed = int.tryParse(value);
@@ -224,7 +224,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Left',
                   placeholder: '2',
-                  initialText: paddingLeft,
+                  value: paddingLeft,
                   onChanged: (value) {
                     debouncer.value.run(() {
                       final parsed = int.tryParse(value);
@@ -239,7 +239,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Top',
                   placeholder: '2',
-                  initialText: paddingTop,
+                  value: paddingTop,
                   onChanged: (value) {
                     debouncer.value.run(() {
                       final parsed = int.tryParse(value);
@@ -254,7 +254,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Right',
                   placeholder: '2',
-                  initialText: paddingRight,
+                  value: paddingRight,
                   onChanged: (value) {
                     debouncer.value.run(() {
                       final parsed = int.tryParse(value);
@@ -269,7 +269,7 @@ class BodySettingView extends HookWidget {
                 child: FieldTextInput(
                   title: 'Bottom',
                   placeholder: '2',
-                  initialText: paddingBottom,
+                  value: paddingBottom,
                   onChanged: (value) {
                     debouncer.value.run(() {
                       final parsed = int.tryParse(value);
