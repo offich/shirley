@@ -21,8 +21,9 @@ class TextSettingView extends HookWidget {
     const primaryColor = Color.fromRGBO(228, 23, 73, 1);
 
     return SingleChildScrollView(
+      padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
       child: Column(
-        spacing: 16.0,
+        spacing: 24.0,
         children: [
           Row(
             spacing: 8.0,
