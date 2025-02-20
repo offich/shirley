@@ -6,8 +6,16 @@ class ButtonField {
   String? text;
   TextStyle? textStyle;
   ButtonStyle? buttonStyle;
+  double? width;
+  double? height;
 
-  ButtonField({this.text, this.textStyle, this.buttonStyle});
+  ButtonField({
+    this.text,
+    this.textStyle,
+    this.buttonStyle,
+    this.width,
+    this.height,
+  });
 
   Color? get backgroundColor => buttonStyle?.backgroundColor?.resolve({});
   Color? get borderColor => buttonStyle?.side?.resolve({})?.color;
@@ -25,18 +33,22 @@ class ButtonField {
     return buttonStyle?.padding?.resolve({})?.resolve(null);
   }
 
+  bool get sameAllPadding {
+    return [padding?.right, padding?.left, padding?.bottom]
+        .every((e) => e != null && e == padding?.top);
+  }
+
   ButtonField clone() {
     return ButtonField()
+      ..width = width
+      ..height = height
       ..buttonStyle = buttonStyle
       ..text = text
       ..textStyle = textStyle;
   }
 
   String toCode() {
-    final sameAllPadding = [padding?.right, padding?.left, padding?.bottom]
-        .every((e) => e != null && e == padding?.top);
-
-    final elevatedButton = refer('ElevatedButton').newInstance(
+    final buttonExpression = refer('ElevatedButton').newInstance(
       [],
       {
         'child': refer('Text').newInstance([
@@ -90,6 +102,18 @@ class ButtonField {
       },
     );
 
+    var widget = buttonExpression;
+    if (height != null && height! > 0 && width != null && width! > 0) {
+      widget = refer('SizedBox').newInstance(
+        [],
+        {
+          'height': literalNum(height!),
+          'width': literalNum(width!),
+          'child': buttonExpression,
+        },
+      );
+    }
+
     final parameter = Parameter(
       (builder) => builder
         ..name = 'context'
@@ -102,7 +126,7 @@ class ButtonField {
           ..name = 'build'
           ..annotations.add(refer('override'))
           ..requiredParameters.add(parameter)
-          ..body = Code('return ${elevatedButton.accept(DartEmitter())};')
+          ..body = Code('return ${widget.accept(DartEmitter())};')
           ..returns = refer('Widget'),
       ),
     ];
@@ -134,7 +158,11 @@ class ButtonField {
   }
 
   String toJsonString() {
-    return '''
+    final paddingJson = sameAllPadding
+        ? '${padding?.top}'
+        : '${padding?.left},${padding?.top},${padding?.right},${padding?.bottom}';
+
+    final buttonJson = '''
 {
   "type": "elevated_button",
   "args": {
@@ -149,7 +177,7 @@ class ButtonField {
       }
     },
     "style": {
-      "padding": "${padding?.top}",
+      "padding": "$paddingJson",
       "backgroundColor": "${buttonStyle?.backgroundColor?.resolve({})?.toHex}",
       "shape": {
         "type": "rounded",
@@ -165,5 +193,21 @@ class ButtonField {
     }
   }
 }''';
+
+    var widget = buttonJson;
+    if (height != null && height! > 0 && width != null && width! > 0) {
+      widget = '''
+{
+  "type": "sized_box",
+  "args": {
+    "height": "$height",
+    "width": "$width",
+    "child": $buttonJson
+  }
+}
+''';
+    }
+
+    return widget;
   }
 }

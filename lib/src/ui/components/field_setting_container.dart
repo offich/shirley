@@ -12,12 +12,16 @@ class FieldSettingContainer extends HookWidget {
     this.onTextChanged,
     this.onTextStyleFieldChanged,
     this.onButtonStyleFieldChanged,
+    this.onWidthChanged,
+    this.onHeightChanged,
   });
 
   final ButtonField field;
   final void Function(String)? onTextChanged;
   final void Function(TextStyle?)? onTextStyleFieldChanged;
   final void Function(ButtonStyle?)? onButtonStyleFieldChanged;
+  final void Function(double)? onWidthChanged;
+  final void Function(double)? onHeightChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,14 @@ class FieldSettingContainer extends HookWidget {
                     onTextStyleFieldChanged: onTextStyleFieldChanged,
                     onButtonStyleFieldChanged: onButtonStyleFieldChanged,
                   ),
-                  BodySettingView(),
+                  BodySettingView(
+                    field: field,
+                    width: field.width ?? 0.0,
+                    height: field.height ?? 0.0,
+                    onButtonStyleFieldChanged: onButtonStyleFieldChanged,
+                    onWidthChanged: onWidthChanged,
+                    onHeightChanged: onHeightChanged,
+                  ),
                   TextSettingView(),
                 ],
               ),
