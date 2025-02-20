@@ -6,6 +6,6 @@ class TextSettingView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [SizedBox.shrink()]);
+    return SingleChildScrollView(child: Column(children: [SizedBox.shrink()]));
   }
 }
