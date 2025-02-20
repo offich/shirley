@@ -45,7 +45,7 @@ class FieldSettingContainer extends HookWidget {
             tabs: [
               Tab(child: Text('Quick Settings')),
               Tab(child: Text('Body')),
-              Tab(child: Text('Main Text')),
+              Tab(child: Text('Text')),
             ],
           ),
           const SizedBox(height: 24),
@@ -73,7 +73,11 @@ class FieldSettingContainer extends HookWidget {
                     onWidthChanged: onWidthChanged,
                     onHeightChanged: onHeightChanged,
                   ),
-                  TextSettingView(),
+                  TextSettingView(
+                    field: field,
+                    onTextChanged: onTextChanged,
+                    onTextStyleFieldChanged: onTextStyleFieldChanged,
+                  ),
                 ],
               ),
             ),
