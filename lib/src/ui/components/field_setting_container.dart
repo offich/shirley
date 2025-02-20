@@ -73,7 +73,11 @@ class FieldSettingContainer extends HookWidget {
                     onWidthChanged: onWidthChanged,
                     onHeightChanged: onHeightChanged,
                   ),
-                  TextSettingView(),
+                  TextSettingView(
+                    field: field,
+                    onTextChanged: onTextChanged,
+                    onTextStyleFieldChanged: onTextStyleFieldChanged,
+                  ),
                 ],
               ),
             ),
