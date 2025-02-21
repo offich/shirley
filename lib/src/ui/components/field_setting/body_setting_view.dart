@@ -276,7 +276,6 @@ class BodySettingView extends HookWidget {
                       title: 'Left',
                       placeholder: '2',
                       value: paddingLeft,
-                      syncable: true,
                       onChanged: (value) {
                         debouncer.value.run(() {
                           final parsed = int.tryParse(value);
@@ -292,7 +291,6 @@ class BodySettingView extends HookWidget {
                       title: 'Top',
                       placeholder: '2',
                       value: paddingTop,
-                      syncable: true,
                       onChanged: (value) {
                         debouncer.value.run(() {
                           final parsed = int.tryParse(value);
@@ -308,7 +306,6 @@ class BodySettingView extends HookWidget {
                       title: 'Right',
                       placeholder: '2',
                       value: paddingRight,
-                      syncable: true,
                       onChanged: (value) {
                         debouncer.value.run(() {
                           final parsed = int.tryParse(value);
@@ -324,7 +321,6 @@ class BodySettingView extends HookWidget {
                       title: 'Bottom',
                       placeholder: '2',
                       value: paddingBottom,
-                      syncable: true,
                       onChanged: (value) {
                         debouncer.value.run(() {
                           final parsed = int.tryParse(value);

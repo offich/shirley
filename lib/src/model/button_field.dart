@@ -174,7 +174,7 @@ class ButtonField {
         "text": "$text",
         "style": {
           "fontSize": "${textStyle?.fontSize}",
-          "fontWeight": "${textStyle?.fontWeight?.toString().split('.')[1]}",
+          "fontWeight": "${textStyle?.fontWeight != null ? textStyle?.fontWeight?.toString().split('.')[1] : FontWeight.w400.toString().split('.')[1]}",
           "color": "${textStyle?.color?.toHex}"
         }
       }

@@ -24,18 +24,13 @@ class QuickSettingView extends HookWidget {
         field.buttonStyle?.padding?.resolve({})?.resolve(null).top.toString();
     final initialBorderWidth =
         field.buttonStyle?.side?.resolve({})?.width.toString();
-
-    String? borderRadius;
-
-    useEffect(() {
-      final shape = field.buttonStyle?.shape?.resolve({});
-
-      if (shape is RoundedRectangleBorder) {
-        borderRadius = shape.borderRadius.resolve(null).topRight.x.toString();
-      }
-
-      return;
-    }, []);
+    final borderRadius =
+        (field.buttonStyle?.shape?.resolve({}) as RoundedRectangleBorder)
+            .borderRadius
+            .resolve(null)
+            .topRight
+            .x
+            .toString();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
