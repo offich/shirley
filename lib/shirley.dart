@@ -9,8 +9,33 @@ import 'package:shirley/src/ui/components/preset_button.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
+class ShirleyDevToolsExtension extends HookWidget {
+  const ShirleyDevToolsExtension({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final updatedTheme = useState<HighlighterTheme?>(null);
+
+    return DevToolsExtension(
+      eventHandlers: {
+        DevToolsExtensionEventType.themeUpdate: (event) async {
+          if (event.data == null) return;
+
+          final newTheme = event.data!['theme'];
+          updatedTheme.value = newTheme == 'dark'
+              ? await HighlighterTheme.loadDarkTheme()
+              : await HighlighterTheme.loadLightTheme();
+        },
+      },
+      child: Shirley(updatedTheme: updatedTheme.value),
+    );
+  }
+}
+
 class Shirley extends HookWidget {
-  const Shirley({super.key});
+  const Shirley({super.key, this.updatedTheme});
+
+  final HighlighterTheme? updatedTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +64,9 @@ class Shirley extends HookWidget {
       afterBuild((_) async {
         await Highlighter.initialize(['dart']);
 
-        theme.value = await HighlighterTheme.loadDarkTheme();
+        if (context.mounted) {
+          theme.value = await HighlighterTheme.loadForContext(context);
+        }
       });
 
       return;
@@ -52,105 +79,99 @@ class Shirley extends HookWidget {
       return;
     }, [buttonField.value]);
 
-    return DevToolsExtension(
-      eventHandlers: {
-        DevToolsExtensionEventType.themeUpdate: (event) async {
-          if (event.data == null) return;
+    useEffect(() {
+      theme.value = updatedTheme;
 
-          final newTheme = event.data!['theme'];
-          theme.value = newTheme == 'dark'
-              ? await HighlighterTheme.loadDarkTheme()
-              : await HighlighterTheme.loadLightTheme();
-        },
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: 24.0,
-            children: [
-              SizedBox(
-                height: 80,
-                child: Column(
-                  spacing: 8.0,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Shirley'),
-                    Text('Button Generator'),
-                    Builder(builder: (context) {
-                      final presets = List<Widget>.filled(3, PresetButton());
-                      return Row(
-                        spacing: 16.0,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: presets,
-                      );
-                    }),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 400,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 16.0,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: theme.value != null
-                          ? PreviewContainer(
-                              code: code.value,
-                              json: jsonString.value,
-                              theme: theme.value!,
-                            )
-                          : SizedBox.shrink(),
-                    ),
-                    Expanded(
-                      flex: 7,
-                      child: FieldSettingContainer(
-                        field: buttonField.value,
-                        onTextChanged: (text) {
-                          final cloned = buttonField.value.clone();
-                          cloned.text = text;
-                          buttonField.value = cloned;
-                        },
-                        onTextStyleFieldChanged: (textStyle) {
-                          final cloned = buttonField.value.clone();
-                          cloned.textStyle = textStyle;
-                          buttonField.value = cloned;
-                        },
-                        onButtonStyleFieldChanged: (buttonStyle) {
-                          final cloned = buttonField.value.clone();
-                          cloned.buttonStyle = buttonStyle;
-                          buttonField.value = cloned;
-                        },
-                        onWidthChanged: (width) {
-                          final cloned = buttonField.value.clone();
-                          cloned.width = width;
-                          buttonField.value = cloned;
-                        },
-                        onHeightChanged: (height) {
-                          final cloned = buttonField.value.clone();
-                          cloned.height = height;
-                          buttonField.value = cloned;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
+      return;
+    }, [updatedTheme]);
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: SingleChildScrollView(
+        child: Column(
+          spacing: 24.0,
+          children: [
+            SizedBox(
+              height: 80,
+              child: Column(
+                spacing: 8.0,
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('or Pick from Presets'),
+                  Text('Shirley'),
+                  Text('Button Generator'),
+                  Builder(builder: (context) {
+                    final presets = List<Widget>.filled(3, PresetButton());
+                    return Row(
+                      spacing: 16.0,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: presets,
+                    );
+                  }),
                 ],
               ),
-              Builder(builder: (context) {
-                final presets = List<Widget>.filled(48, PresetButton());
-                return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
-              }),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 400,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 16.0,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: theme.value != null
+                        ? PreviewContainer(
+                            code: code.value,
+                            json: jsonString.value,
+                            theme: theme.value!,
+                          )
+                        : SizedBox.shrink(),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: FieldSettingContainer(
+                      field: buttonField.value,
+                      onTextChanged: (text) {
+                        final cloned = buttonField.value.clone();
+                        cloned.text = text;
+                        buttonField.value = cloned;
+                      },
+                      onTextStyleFieldChanged: (textStyle) {
+                        final cloned = buttonField.value.clone();
+                        cloned.textStyle = textStyle;
+                        buttonField.value = cloned;
+                      },
+                      onButtonStyleFieldChanged: (buttonStyle) {
+                        final cloned = buttonField.value.clone();
+                        cloned.buttonStyle = buttonStyle;
+                        buttonField.value = cloned;
+                      },
+                      onWidthChanged: (width) {
+                        final cloned = buttonField.value.clone();
+                        cloned.width = width;
+                        buttonField.value = cloned;
+                      },
+                      onHeightChanged: (height) {
+                        final cloned = buttonField.value.clone();
+                        cloned.height = height;
+                        buttonField.value = cloned;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('or Pick from Presets'),
+              ],
+            ),
+            Builder(builder: (context) {
+              final presets = List<Widget>.filled(48, PresetButton());
+              return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
+            }),
+          ],
         ),
       ),
     );
