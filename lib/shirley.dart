@@ -165,7 +165,13 @@ class Shirley extends HookWidget {
               spacing: 8.0,
               children: [
                 Expanded(child: Divider()),
-                Text('or Pick from assets'),
+                Text(
+                  'or Pick from assets',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(fontWeight: FontWeight.normal),
+                ),
                 Expanded(child: Divider()),
               ],
             ),
