@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/common/widget.dart';
 import 'package:shirley/src/model/button_field.dart';
+import 'package:shirley/src/ui/components/dynamic_widget.dart';
 import 'package:shirley/src/ui/components/field_setting_container.dart';
-import 'package:shirley/src/ui/components/preset_button.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
@@ -94,25 +94,90 @@ class Shirley extends HookWidget {
         child: Column(
           spacing: 24.0,
           children: [
-            SizedBox(
-              height: 80,
-              child: Column(
-                spacing: 8.0,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Shirley'),
-                  Text('Button Generator'),
-                  Builder(builder: (context) {
-                    final presets = List<Widget>.filled(3, PresetButton());
-                    return Row(
-                      spacing: 16.0,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: presets,
-                    );
-                  }),
-                ],
-              ),
+            Column(
+              spacing: 8.0,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Shirley'),
+                Text('Button Generator'),
+                Builder(builder: (context) {
+                  final presets = [
+                    ButtonField(
+                      text: 'Get started',
+                      height: 40,
+                      width: 120,
+                      buttonStyle: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(19, 39, 67, 1),
+                        side: BorderSide(
+                          color: Color.fromRGBO(215, 56, 94, 1),
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      textStyle: TextStyle(
+                        color: Color.fromRGBO(237, 201, 136, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ButtonField(
+                      text: 'With these',
+                      height: 40,
+                      width: 120,
+                      buttonStyle: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(255, 30, 86, 1),
+                        side: BorderSide(
+                          color: Color.fromRGBO(255, 172, 65, 1),
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      textStyle: TextStyle(
+                        color: Color.fromRGBO(50, 50, 50, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ButtonField(
+                      text: 'Presets Now!!',
+                      height: 40,
+                      width: 120,
+                      buttonStyle: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(35, 41, 49, 1),
+                        side: BorderSide(
+                          color: Color.fromRGBO(247, 56, 89, 1),
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      textStyle: TextStyle(
+                        color: Color.fromRGBO(241, 209, 138, 1),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ];
+
+                  return Row(
+                    spacing: 8.0,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: presets.map((preset) {
+                      return GestureDetector(
+                        onTap: () => buttonField.value = preset,
+                        child: DynamicWidget(
+                          jsonString: preset.toJsonString(),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }),
+              ],
             ),
             SizedBox(
               height: 400,
@@ -179,8 +244,119 @@ class Shirley extends HookWidget {
               ],
             ),
             Builder(builder: (context) {
-              final presets = List<Widget>.filled(48, PresetButton());
-              return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
+              final presets = [
+                ButtonField(
+                  text: 'Tap Here',
+                  height: 40,
+                  width: 120,
+                  buttonStyle: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(169, 181, 223, 1),
+                    side: BorderSide(
+                      color: Color.fromRGBO(255, 242, 242, 1),
+                      width: 2,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(45, 51, 107, 1),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                ButtonField(
+                  text: 'Subscribe',
+                  height: 60,
+                  width: 180,
+                  buttonStyle: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(220, 215, 201, 1),
+                    side: BorderSide(
+                      color: Color.fromRGBO(63, 79, 68, 1),
+                      width: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(162, 123, 92, 1),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                ButtonField(
+                  text: 'Order',
+                  height: 40,
+                  width: 120,
+                  buttonStyle: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(255, 157, 35, 1),
+                    side: BorderSide(
+                      color: Color.fromRGBO(193, 70, 0, 1),
+                      width: 2,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(254, 249, 225, 1),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                ButtonField(
+                  text: 'Continue',
+                  height: 40,
+                  width: 120,
+                  buttonStyle: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: BorderSide(
+                      color: Color.fromRGBO(105, 11, 34, 1),
+                      width: 4,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(105, 11, 34, 1),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                ButtonField(
+                  text: 'Login',
+                  height: 100,
+                  width: 100,
+                  buttonStyle: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(133, 159, 61, 1),
+                    side: BorderSide(
+                      color: Color.fromRGBO(246, 252, 223, 1),
+                      width: 2,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: Color.fromRGBO(49, 81, 30, 1),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ];
+
+              return Wrap(
+                spacing: 12.0,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: presets.map((preset) {
+                  return GestureDetector(
+                    onTap: () => buttonField.value = preset,
+                    child: DynamicWidget(jsonString: preset.toJsonString()),
+                  );
+                }).toList(),
+              );
             }),
           ],
         ),
