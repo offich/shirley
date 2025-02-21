@@ -81,14 +81,48 @@ class Shirley extends HookWidget {
                   children: [
                     Text('Shirley'),
                     Text('Button Generator'),
-                    Builder(builder: (context) {
-                      final presets = List<Widget>.filled(3, PresetButton());
-                      return Row(
-                        spacing: 16.0,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: presets,
-                      );
-                    }),
+                    Row(
+                      spacing: 8.0,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        PresetButton(
+                          onPressed: (preset) => buttonField.value = preset,
+                          preset: ButtonField(
+                            text: 'Get started',
+                            buttonStyle: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(54, 116, 181, 1),
+                            ),
+                            textStyle: TextStyle(
+                              color: Color.fromRGBO(161, 227, 249, 1),
+                            ),
+                          ),
+                        ),
+                        PresetButton(
+                          onPressed: (preset) => buttonField.value = preset,
+                          preset: ButtonField(
+                            text: 'with these',
+                            buttonStyle: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(133, 169, 71, 1),
+                            ),
+                            textStyle: TextStyle(
+                              color: Color.fromRGBO(18, 53, 36, 1),
+                            ),
+                          ),
+                        ),
+                        PresetButton(
+                          onPressed: (preset) => buttonField.value = preset,
+                          preset: ButtonField(
+                            text: 'Preset Now!!',
+                            buttonStyle: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromRGBO(236, 235, 222, 1),
+                            ),
+                            textStyle: TextStyle(
+                              color: Color.fromRGBO(165, 157, 132, 1),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -160,7 +194,8 @@ class Shirley extends HookWidget {
                 );
               }),
               Builder(builder: (context) {
-                final presets = List<Widget>.filled(48, PresetButton());
+                final presets = List<Widget>.filled(
+                    48, PresetButton(preset: ButtonField()));
                 return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
               }),
             ],

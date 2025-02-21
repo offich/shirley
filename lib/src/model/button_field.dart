@@ -173,7 +173,7 @@ class ButtonField {
       "args": {
         "text": "$text",
         "style": {
-          "fontSize": "${textStyle?.fontSize}",
+          "fontSize": "${textStyle?.fontSize ?? 14}",
           "fontWeight": "${textStyle?.fontWeight?.toString().split('.')[1]}",
           "color": "${textStyle?.color?.toHex}"
         }
