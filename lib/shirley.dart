@@ -43,6 +43,9 @@ class Shirley extends HookWidget {
     final code = useState('');
     final jsonString = useState('');
 
+    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
+    const secondaryColor = Color.fromRGBO(245, 88, 123, 1);
+
     final buttonField = useState(ButtonField(
       text: '1.Normal Button',
       textStyle: TextStyle(
@@ -54,8 +57,8 @@ class Shirley extends HookWidget {
       width: 120,
       buttonStyle: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(4),
-        backgroundColor: Color.fromRGBO(131, 217, 119, 1),
-        side: BorderSide(color: Color.fromRGBO(11, 127, 90, 1), width: 4),
+        backgroundColor: secondaryColor,
+        side: BorderSide(color: primaryColor, width: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     ));
