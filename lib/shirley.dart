@@ -139,14 +139,23 @@ class Shirley extends HookWidget {
                   ],
                 ),
               ),
-              Row(
-                spacing: 8.0,
-                children: <Widget>[
-                  Expanded(child: Divider()),
-                  Text('or Pick from assets'),
-                  Expanded(child: Divider()),
-                ],
-              ),
+              // To apply the latest brightness, it is needed to wrap with StatelessWidget. Need to fix.
+              Builder(builder: (context) {
+                return Row(
+                  spacing: 8.0,
+                  children: <Widget>[
+                    Expanded(child: Divider()),
+                    Text(
+                      'or Pick from assets',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.normal),
+                    ),
+                    Expanded(child: Divider()),
+                  ],
+                );
+              }),
               Builder(builder: (context) {
                 final presets = List<Widget>.filled(48, PresetButton());
                 return Wrap(spacing: 8.0, runSpacing: 16.0, children: presets);
