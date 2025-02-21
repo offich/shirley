@@ -162,9 +162,11 @@ class Shirley extends HookWidget {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 8.0,
               children: [
-                Text('or Pick from Presets'),
+                Expanded(child: Divider()),
+                Text('or Pick from assets'),
+                Expanded(child: Divider()),
               ],
             ),
             Builder(builder: (context) {
