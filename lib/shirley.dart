@@ -89,18 +89,23 @@ class Shirley extends HookWidget {
     }, [updatedTheme]);
 
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       child: SingleChildScrollView(
         child: Column(
           spacing: 24.0,
           children: [
             Column(
-              spacing: 8.0,
+              spacing: 24.0,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Shirley'),
-                Text('Button Generator'),
+                Text(
+                  'Shirley - Button Generator DevTools',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge
+                      ?.copyWith(fontSize: 28),
+                ),
                 Builder(builder: (context) {
                   final presets = [
                     ButtonField(
