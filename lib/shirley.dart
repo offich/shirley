@@ -100,7 +100,7 @@ class Shirley extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Shirley - Button Generator',
+                  'Shirley - Button Generator DevTools',
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge
