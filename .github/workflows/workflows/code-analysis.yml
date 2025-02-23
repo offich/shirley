@@ -1,0 +1,86 @@
+name: code-analysis
+
+on:
+  push:
+    paths:
+      - 'lib/**.dart'
+      - 'test/**.dart'
+      - './pubspec.yaml'
+      - '.github/workflows/code-analysis.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: make ssh directory
+        run: |
+          mkdir -p $HOME/.ssh/
+
+      - uses: kuhnroyal/flutter-fvm-config-action@v2
+        id: fvm-config-action
+
+      - uses: subosito/flutter-action@v2.18.0
+        with:
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          cache: true
+
+      - name: restore pubspec dependencies cache
+        uses: actions/cache@v4
+        id: pubspec_cache_id
+        with:
+          path: |
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+            **/.packages
+            **/.flutter-plugins
+            **/.flutter-plugin-dependencies
+            **/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: install dependencies
+        if: ${{ steps.pubspec_cache_id.outputs.cache-hit != 'true' }}
+        run: flutter pub get
+
+  lint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: setup
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: kuhnroyal/flutter-fvm-config-action@v3
+        id: fvm-config-action
+
+      - uses: subosito/flutter-action@v2.18.0
+        with:
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          cache: true
+
+      - name: restore pubspec dependencies cache
+        uses: actions/cache@v4
+        id: pubspec_cache_id
+        with:
+          path: |
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+            **/.packages
+            **/.flutter-plugins
+            **/.flutter-plugin-dependencies
+            **/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+
+      - run: dart format --set-exit-if-changed lib test
+      - run: flutter analyze lib test
