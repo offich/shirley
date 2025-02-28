@@ -1,0 +1,5 @@
+name: shirley
+issueTracker: https://github.com/offich/shirley/issues
+version: 0.0.1
+materialIconCodePoint: '0xe651'
+requiresConnection: false
