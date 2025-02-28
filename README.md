@@ -6,7 +6,7 @@ A [Flutter DevTools extension](https://pub.dev/packages/devtools_extensions) for
 
 This package adds a new tool to Flutter's DevTools, utilizing the new `devtools_extensions` framework. With this tool, you can generate a button code by setting its fields. You can also copy the generated code to clipboard and paste it anywhere.
 
-![screenshot](https://raw.githubusercontent.com/offich/panache/refs/heads/develop/resources/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/offich/shirley/refs/heads/develop/resources/screenshot.png)
 
 ## Getting started
 
