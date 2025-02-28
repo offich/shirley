@@ -377,10 +377,10 @@ packages:
     dependency: "direct main"
     description:
       name: json_dynamic_widget
-      sha256: "9cc5860ac05f349e525f8e66d8504c71eb8f0d7317a27d37760f36435d2fc925"
+      sha256: "5bdcf12deab654ab47be35cb0674083b07c9846bbad710bdd2e63aaaf66a860b"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.0+1"
+    version: "9.0.0+3"
   json_path:
     dependency: transitive
     description:
@@ -409,10 +409,10 @@ packages:
     dependency: transitive
     description:
       name: json_theme
-      sha256: "3529d038fec78f745faa80818f797d47a1ba9ef6f7ac99bea9019d66d6ee094c"
+      sha256: "3c757352d14bf76c4683e283da2fabfb75669d7478efda67011cba6a0471ca4b"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0+3"
+    version: "8.0.0+1"
   json_theme_annotation:
     dependency: transitive
     description:
@@ -878,10 +878,10 @@ packages:
     dependency: transitive
     description:
       name: yaml_writer
-      sha256: "2ae2cd5f5a612a930ef2b1b40df540c819ab85e301f26dfaf0b6201b857db825"
+      sha256: "69651cd7238411179ac32079937d4aa9a2970150d6b2ae2c6fe6de09402a5dc5"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
   yaon:
     dependency: transitive
     description:
@@ -891,5 +891,5 @@ packages:
     source: hosted
     version: "1.1.4+10"
 sdks:
-  dart: ">=3.7.0-0 <4.0.0"
+  dart: ">=3.7.0 <4.0.0"
   flutter: ">=3.27.1"
