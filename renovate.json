@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":prHourlyLimitNone"
+  ],
+  "timezone": "Asia/Tokyo",
+  "labels": [
+    "deps"
+  ],
+  "rebaseWhen": "conflicted",
+  "separateMinorPatch": true,
+  "schedule": [
+    "before 10am on Monday"
+  ],
+  "vulnerabilityAlerts": {
+    "labels": [
+      "security"
+    ]
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "enabled": false
+    }
+  ],
+  "ignoreDeps": [
+    "flutter",
+    "dart"
+  ],
+  "ignorePaths": [
+    ".github/workflows",
+    ".fvmrc",
+    "example/android",
+    "example/pubspec.yaml",
+    "example/.fvmrc"
+  ]
+}
