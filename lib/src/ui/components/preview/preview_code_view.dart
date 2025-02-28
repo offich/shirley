@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/ui/components/shirley_snack_bar.dart';
+import 'package:shirley/src/ui/style/color.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 class PreviewCodeView extends HookWidget {
@@ -38,9 +39,6 @@ class PreviewCodeView extends HookWidget {
 
     final copying = useState(false);
 
-    const secondaryColor = Color.fromRGBO(245, 88, 123, 1);
-    const fourthlyColor = Color.fromRGBO(255, 245, 145, 1);
-
     return Stack(
       children: [
         Padding(
@@ -58,8 +56,8 @@ class PreviewCodeView extends HookWidget {
             height: 28,
             child: IconButton(
               style: IconButton.styleFrom(
-                foregroundColor: fourthlyColor,
-                backgroundColor: secondaryColor,
+                foregroundColor: ShirleyColor.fourthlyColor,
+                backgroundColor: ShirleyColor.secondaryColor,
               ),
               padding: EdgeInsets.all(0.0),
               icon: Icon(

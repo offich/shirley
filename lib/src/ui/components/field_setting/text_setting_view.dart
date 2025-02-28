@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/field_setting/color_picker_block.dart';
 import 'package:shirley/src/ui/components/field_setting/field_text_input.dart';
+import 'package:shirley/src/ui/style/color.dart';
 
 class TextSettingView extends HookWidget {
   const TextSettingView({
@@ -18,8 +19,6 @@ class TextSettingView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
-
     return SingleChildScrollView(
       padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
       child: Column(
@@ -74,7 +73,7 @@ class TextSettingView extends HookWidget {
                     Text('Font Weight', style: TextStyle(fontSize: 14)),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor),
+                        border: Border.all(color: ShirleyColor.primaryColor),
                       ),
                       child: DropdownButton<FontWeight>(
                         isDense: true,

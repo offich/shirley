@@ -7,6 +7,7 @@ import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/dynamic_widget.dart';
 import 'package:shirley/src/ui/components/field_setting_container.dart';
 import 'package:shirley/src/ui/components/preview_container.dart';
+import 'package:shirley/src/ui/style/color.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 class ShirleyDevToolsExtension extends HookWidget {
@@ -43,9 +44,6 @@ class Shirley extends HookWidget {
     final code = useState('');
     final jsonString = useState('');
 
-    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
-    const secondaryColor = Color.fromRGBO(245, 88, 123, 1);
-
     final buttonField = useState(ButtonField(
       text: '1.Normal Button',
       textStyle: TextStyle(
@@ -57,8 +55,8 @@ class Shirley extends HookWidget {
       width: 120,
       buttonStyle: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(4),
-        backgroundColor: secondaryColor,
-        side: BorderSide(color: primaryColor, width: 4),
+        backgroundColor: ShirleyColor.secondaryColor,
+        side: BorderSide(color: ShirleyColor.primaryColor, width: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
     ));

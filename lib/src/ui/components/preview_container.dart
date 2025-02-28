@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shirley/src/ui/components/preview/preview_code_view.dart';
 import 'package:shirley/src/ui/components/preview/preview_widget_view.dart';
+import 'package:shirley/src/ui/style/color.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 class PreviewContainer extends HookWidget {
@@ -18,8 +19,6 @@ class PreviewContainer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
-
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -28,12 +27,12 @@ class PreviewContainer extends HookWidget {
           TabBar(
             tabAlignment: TabAlignment.fill,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: primaryColor,
+            indicatorColor: ShirleyColor.primaryColor,
             labelStyle: TextStyle(fontSize: 16),
             splashBorderRadius:
                 const BorderRadius.vertical(top: Radius.circular(4)),
             overlayColor: WidgetStateProperty.all(
-              primaryColor.withAlpha((255.0 * 0.1).round()),
+              ShirleyColor.primaryColor.withAlpha((255.0 * 0.1).round()),
             ),
             tabs: [
               Tab(child: Text('Preview')),
@@ -43,7 +42,7 @@ class PreviewContainer extends HookWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: primaryColor, width: 2),
+                border: Border.all(color: ShirleyColor.primaryColor, width: 2),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: TabBarView(
