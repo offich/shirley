@@ -5,7 +5,7 @@ on:
     paths:
       - 'lib/**.dart'
       - 'test/**.dart'
-      - './pubspec.yaml'
+      - 'pubspec.yaml'
       - '.github/workflows/code-analysis.yml'
 
 concurrency:
