@@ -1,6 +1,6 @@
 # 🍹 Shirley
 
-A [Flutter DevTools extension](https://pub.dev/packages/devtools_extensions) for button code generator.
+Buttom Maker [Flutter DevTools extension](https://pub.dev/packages/devtools_extensions)
 
 ## Features
 
