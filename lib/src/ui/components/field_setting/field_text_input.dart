@@ -8,12 +8,14 @@ class FieldTextInput extends HookWidget {
     required this.title,
     this.value,
     this.placeholder,
+    this.syncable = false,
     this.onChanged,
   });
 
   final String title;
   final String? value;
   final String? placeholder;
+  final bool syncable;
   final void Function(String)? onChanged;
 
   @override
@@ -22,6 +24,7 @@ class FieldTextInput extends HookWidget {
     final controller = useTextEditingController(text: value);
 
     useEffect(() {
+      if (!syncable) return;
       if (typing.value) return;
 
       controller.text = value ?? '';
