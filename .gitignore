@@ -72,3 +72,6 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+/example/extension/devtools/build/*
+!*/extension/devtools/build/.gitkeep
