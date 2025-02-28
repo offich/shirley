@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shirley/src/ui/components/dialog/color_picker_dialog.dart';
+import 'package:shirley/src/ui/style/color.dart';
 
 class ColorPickerBlock extends StatelessWidget {
   const ColorPickerBlock({
@@ -15,8 +16,6 @@ class ColorPickerBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
-
     return GestureDetector(
       onTap: () async {
         await showColorPickerDialog(
@@ -33,7 +32,7 @@ class ColorPickerBlock extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: pickerColor,
-              border: Border.all(width: 2.0, color: primaryColor),
+              border: Border.all(width: 2.0, color: ShirleyColor.primaryColor),
               borderRadius: BorderRadius.circular(4),
             ),
             height: 36,

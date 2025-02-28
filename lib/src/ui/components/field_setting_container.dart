@@ -4,6 +4,7 @@ import 'package:shirley/src/model/button_field.dart';
 import 'package:shirley/src/ui/components/field_setting/body_setting_view.dart';
 import 'package:shirley/src/ui/components/field_setting/quick_setting_view.dart';
 import 'package:shirley/src/ui/components/field_setting/text_setting_view.dart';
+import 'package:shirley/src/ui/style/color.dart';
 
 class FieldSettingContainer extends HookWidget {
   const FieldSettingContainer({
@@ -25,8 +26,6 @@ class FieldSettingContainer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color.fromRGBO(228, 23, 73, 1);
-
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -35,12 +34,12 @@ class FieldSettingContainer extends HookWidget {
           TabBar(
             tabAlignment: TabAlignment.fill,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: primaryColor,
+            indicatorColor: ShirleyColor.primaryColor,
             labelStyle: TextStyle(fontSize: 16),
             splashBorderRadius:
                 const BorderRadius.vertical(top: Radius.circular(4)),
             overlayColor: WidgetStateProperty.all(
-              primaryColor.withAlpha((255.0 * 0.1).round()),
+              ShirleyColor.primaryColor.withAlpha((255.0 * 0.1).round()),
             ),
             tabs: [
               Tab(child: Text('Quick Settings')),
@@ -53,7 +52,7 @@ class FieldSettingContainer extends HookWidget {
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: primaryColor, width: 2),
+                border: Border.all(color: ShirleyColor.primaryColor, width: 2),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: TabBarView(
