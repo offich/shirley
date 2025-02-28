@@ -1,0 +1,14 @@
+.github
+.idea
+.fvmrc
+.gitignore
+
+analysis_options.yaml
+devtools_options.yaml
+renovate.json
+shirley.iml
+
+example/
+test/
+resources/
+web/
