@@ -21,7 +21,7 @@ jobs:
 
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.6.0
+          sdk: 3.7.0
 
       - uses: kuhnroyal/flutter-fvm-config-action@v3
         id: fvm-config-action
