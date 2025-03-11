@@ -2,6 +2,7 @@ name: shirley
 description: Button Widgets Code Generator for Flutter DevTools Extension
 homepage: https://offich.me
 repository: https://github.com/offich/shirley
+issue_tracker: https://github.com/offich/shirley/issues
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
