@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 showSnackBar(BuildContext context, String text, {bool isError = false}) {
   ScaffoldMessenger.of(context).showSnackBar(
-    PanacheSnackBar(text: text, isError: isError),
+    ShirleySnackBar(text: text, isError: isError),
   );
 }
 
-class PanacheSnackBar extends SnackBar {
+class ShirleySnackBar extends SnackBar {
   final String text;
   final bool isError;
 
-  PanacheSnackBar({super.key, required this.text, this.isError = false})
+  ShirleySnackBar({super.key, required this.text, this.isError = false})
       : super(
           backgroundColor: Color.fromRGBO(228, 23, 73, 1),
           width: 360.0,
