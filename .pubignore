@@ -7,6 +7,7 @@ analysis_options.yaml
 devtools_options.yaml
 renovate.json
 shirley.iml
+CLAUDE.md
 
 test/
 resources/
