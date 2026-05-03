@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
 
@@ -26,17 +26,17 @@ jobs:
         run: |
           mkdir -p $HOME/.ssh/
 
-      - uses: kuhnroyal/flutter-fvm-config-action@v2
+      - uses: kuhnroyal/flutter-fvm-config-action@4155f8ca4c30a4f2f50df69caa0e4259f6cd1142 # v2.3
         id: fvm-config-action
 
-      - uses: subosito/flutter-action@v2.18.0
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
           channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
           flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
           cache: true
 
       - name: restore pubspec dependencies cache
-        uses: actions/cache@v4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: pubspec_cache_id
         with:
           path: |
@@ -57,21 +57,21 @@ jobs:
     needs: setup
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
 
-      - uses: kuhnroyal/flutter-fvm-config-action@v3
+      - uses: kuhnroyal/flutter-fvm-config-action@c378498f1d1962d33039c3989411093ef8a17b2c # v3.3
         id: fvm-config-action
 
-      - uses: subosito/flutter-action@v2.18.0
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
           channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
           flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
           cache: true
 
       - name: restore pubspec dependencies cache
-        uses: actions/cache@v4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: pubspec_cache_id
         with:
           path: |
