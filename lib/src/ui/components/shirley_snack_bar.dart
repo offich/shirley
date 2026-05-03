@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-showSnackBar(BuildContext context, String text, {bool isError = false}) {
+void showSnackBar(BuildContext context, String text, {bool isError = false}) {
   ScaffoldMessenger.of(context).showSnackBar(
     ShirleySnackBar(text: text, isError: isError),
   );
