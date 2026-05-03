@@ -1,0 +1,9 @@
+【Production Release】<%= Time.now.strftime('%Y-%m-%d %H:%M') %>
+
+## Description
+Distribute DevTool Extension :rocket:
+
+## Target PR
+<% pull_requests.each do |pr| -%>
+- #<%= pr.number %> by <%= pr.mention %>
+<% end -%>
