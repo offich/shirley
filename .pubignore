@@ -2,13 +2,18 @@
 .idea
 .fvmrc
 .gitignore
+.markdownlint.jsonc
 
 analysis_options.yaml
 devtools_options.yaml
 renovate.json
 shirley.iml
 CLAUDE.md
+package.json
+pnpm-lock.yaml
+mise.toml
 
 test/
 resources/
 web/
+node_modules
