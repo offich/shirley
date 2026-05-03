@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Shirley** is a Flutter DevTools Extension that provides an interactive UI for generating customizable Flutter `ElevatedButton` widget code. Users configure button properties through the UI, see a live preview, and copy the generated Dart code.
 
-Uses FVM to pin Flutter to `3.29.0`. Prefix Dart/Flutter commands with `fvm` (e.g., `fvm flutter run`).
+Uses FVM to pin Flutter to `3.38.10`. Prefix Dart/Flutter commands with `fvm` (e.g., `fvm flutter run`).
 
 ## Common Commands
 
