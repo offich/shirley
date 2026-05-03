@@ -78,3 +78,5 @@ app.*.map.json
 !*/extension/devtools/build/.gitkeep
 
 .mcp.json
+
+node_modules

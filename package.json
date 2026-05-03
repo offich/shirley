@@ -1,0 +1,20 @@
+{
+  "name": "shirley",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run lint:markdown",
+    "lint:fix": "npm run lint:markdown:fix",
+    "lint:markdown": "markdownlint-cli2 docs/**/*.md .claude/**/*.md CHANGELOG.md",
+    "lint:markdown:fix": "markdownlint-cli2 --fix docs/**/*.md .claude/**/*.md CHANGELOG.md"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.1",
+  "devDependencies": {
+    "markdownlint-cli2": "0.22.0"
+  }
+}
